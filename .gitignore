@@ -1,11 +1,13 @@
 # virtual env 
 /venv
+.env 
 
 # my custom API 
-ideastrict-api.py 
-api.py 
+/misc
 
 # ignoring pycache 
 __pycache__
+
+
  
 

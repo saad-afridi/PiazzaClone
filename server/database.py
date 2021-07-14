@@ -1,11 +1,15 @@
+import os 
 import motor.motor_asyncio as m_asyncio
 from bson.objectid import ObjectId
+from dotenv import load_dotenv 
 
-MONGO_DETAILS = "mongodb://localhost:27017"
+load_dotenv()
+
+MONGO_DETAILS = os.environ.get('MONGO_ATLAS_URI')
 
 client = m_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
 
-database = client.students
+database = client.PiazzaClone
 
 student_collection = database.get_collection("students_collection")
 
@@ -41,13 +45,13 @@ async def retrieve_student(id: str, data: dict):
         return student_hlper(student);
     
 # Update a student with matching ID
-async def update_student(id:str, data:dict):
+async def update_student(id: str, data: dict):
     # Return false if an empty request body is sent
     if len(data) < 1:
         return False
     student = await student_collection.find_one({"_id": ObjectId(id)});
     if student:
-        updated_student = await student.collection_update_one(
+        updated_student = await student_collection.update_one(
             {"_id": ObjectId(id)}, {"$set": data}
         )
         if updated_student:
