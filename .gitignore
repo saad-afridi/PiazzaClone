@@ -4,5 +4,8 @@
 # my custom API 
 ideastrict-api.py 
 api.py 
+
+# ignoring pycache 
+__pycache__
  
 
