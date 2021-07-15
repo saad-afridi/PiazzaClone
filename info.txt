@@ -1,6 +1,4 @@
 This will be a representation of what a class in Piazza might look like in MongoDB
-
-We could have a seperate collection for all posts of a specific class in Piazza.
 [
     {
         _id: ObjectID(),
@@ -10,6 +8,7 @@ We could have a seperate collection for all posts of a specific class in Piazza.
         class_term: "FALL2020",
         folders: ["midterm", "A1", "A2", "A3", "exam", "general"],
         instructors: ["ta1@utoronto.ca","ta2@utoronto.ca", "prof1@utoronto.ca"],
+        studenets: ["ak@utoronto.ca", "abij@utoronto.ca", "kandice@utoronto.ca"]
         posts_num: 2,
         posts: [
             {
@@ -25,5 +24,27 @@ We could have a seperate collection for all posts of a specific class in Piazza.
         ]
     },
     ...
+]
+
+This will be a representation of what users in Piazza might look like in MongoDB
+[
+    {
+        _id: ObjectID()
+        type: "instructor",
+        school_name: "UofT",
+        class: [ObjectID(), ...],
+        name: "John Rose"
+        email: "ta1@utoronto.ca",
+        password: "Ilove"
+    },
+    {
+        _id: ObjectID()
+        type: "student",
+        school_name: "UofT",
+        class: [ObjectID(), ...],
+        name: "Kandice Dog",
+        email: "kandice@utoronto.ca",
+        password: "password"
+    },
 ]
 

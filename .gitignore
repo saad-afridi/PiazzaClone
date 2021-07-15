@@ -4,6 +4,7 @@
 
 # my custom API 
 /misc
+info.txt
 
 # ignoring pycache 
 __pycache__
