@@ -8,6 +8,7 @@ def ClassSchema(BaseModel):
     term: str = Field(...)
     folders: List[str] = Field(...)
     instructors: List[EmailStr] = Field(...)
+    students: List[EmailStr] = Field(...)
     post_num: int = 1
     posts: List[object] = Field(...)
     
@@ -21,6 +22,7 @@ def ClassSchema(BaseModel):
                 "term": "FALL2020",
                 "folders": ["midterm", "A1", "A2", "A3", "exam", "general"],
                 "instructors": ["ta1@utoronto.ca","ta2@utoronto.ca", "prof1@utoronto.ca"],
+                "students": ["ak@utoronto.ca", "abij@utoronto.ca", "kandice@utoronto.ca"],
                 "posts_num": 2,
                 "posts": [
                     {
@@ -29,7 +31,9 @@ def ClassSchema(BaseModel):
                         "post_to": "entire_class",
                         "folders": "midterm",
                         "summary": "Why was the midterm so hard?",
-                        "details": "I was stuck on q3 for most of the test and I didn't even have enough time to finish the whole thing"
+                        "details": "I was stuck on q3 for most of the test and I didn't even have enough time to finish the whole thing",
+                        "follow-ups": ["Yeah Q3 was REALLY hard!", "Nah it wasnt that bad"],
+                        "replies": ["Yeah It was pretty bad", "I thought I made the test easier than past offerrings. We will mark easy dont worry!"]
                     }
                 ]
             }
@@ -42,6 +46,7 @@ def UpdateClass(BaseModel):
     term: Optional[str] = None
     folders: Optional[List[str]] = None
     instructors: Optional[List[EmailStr]] = None
+    students: List[EmailStr] = None
     post_num: Optional[int] = None
     posts: Optioanl[List[object]] = None
     

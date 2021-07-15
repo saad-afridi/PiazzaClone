@@ -37,9 +37,7 @@ async def add_student(student_data: dict):
     return student_hlper(new_student)
 
 # Retrieve a student with matching ID
-async def retrieve_student(id: str, data: dict):
-    if len(data) < 1:
-        return False 
+async def retrieve_student(id: str): 
     student = await student_collection.find_one({"_id": ObjectId(id)});
     if student:
         return student_hlper(student);
