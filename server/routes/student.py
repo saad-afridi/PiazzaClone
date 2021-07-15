@@ -10,10 +10,13 @@ from server.database import (
 )
 
 from server.models.student import (
-    ErrorResponseModel,
-    ResponseModel,
     StudentSchema,
     UpdateStudent
+)
+
+from server.models.utils import (
+    ResponseModel,
+    ErrorResponseModel
 )
 
 router = APIRouter();

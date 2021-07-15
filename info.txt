@@ -1,0 +1,13 @@
+The structure of how we're going to be storing the data in our database (MongoDB):
+
+[
+    {
+        "id": ObjectID(),
+        "class_name": str,
+        "class_num": str, 
+        "estimated_class_enroll": int, 
+        "class_term": "FALL2020",
+        "folders": ["midterm", "A1", "A2", "A3", "exam", "general"]
+
+    }
+]
