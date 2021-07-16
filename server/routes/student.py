@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Body 
+from fastapi import APIRouter, Body
 from fastapi.encoders import jsonable_encoder
 
 from server.database import (
@@ -19,7 +19,8 @@ from server.models.utils import (
     ErrorResponseModel
 )
 
-router = APIRouter();
+router = APIRouter()
+
 
 @router.get('/', response_description="Get all Students")
 async def get_all_students():
@@ -33,6 +34,7 @@ async def add_student_data(student: StudentSchema = Body(...)):
     new_student = await add_student(student)
     return ResponseModel(new_student, "Student added successfully.")
 
+
 @router.put('/{id}', response_description="Student data updated in database")
 async def update_student_data(id: str, req: UpdateStudent = Body(...)):
     req = {k: v for k, v in req.dict().items() if v is not None}
@@ -45,8 +47,10 @@ async def update_student_data(id: str, req: UpdateStudent = Body(...)):
     return ErrorResponseModel(
         "An error occurred!", 404, "There was an error updating student data."
     )
-    
-@router.delete('/{id}', response_description="Student data deleted from database")
+
+
+@router.delete('/{id}',
+               response_description="Student data deleted from database")
 async def delete_student_data(id: str):
     deleted_student = await delete_student(id)
     if deleted_student:
@@ -57,4 +61,3 @@ async def delete_student_data(id: str):
     return ErrorResponseModel(
         "An error occurred!", 404, "There was an error deleting student data."
     )
-    

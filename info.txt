@@ -50,3 +50,8 @@ This will be a representation of what user collection in Piazza might look like 
     },
 ]
 
+The workflow is something like:
+Models (a schema for what the data should look like)
+Databases (database manipulation related to that specific collection)
+Routes import Models and Databases to combine everything
+App contains all the routes 

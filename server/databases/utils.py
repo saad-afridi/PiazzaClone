@@ -1,7 +1,7 @@
-import os 
+import os
 import motor.motor_asyncio as m_asyncio
 from bson.objectid import ObjectId
-from dotenv import load_dotenv 
+from dotenv import load_dotenv
 
 load_dotenv()
 
