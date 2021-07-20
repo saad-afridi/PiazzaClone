@@ -4,10 +4,10 @@ from bson.objectid import ObjectId
 course_collection = database.get_collection("Classes")
 
 
-# Helper functions
+# Helper Function
 def _class_helper(course):
     return {
-        "id": course["_id"],
+        "id": str(course["_id"]),
         "class_name": course["class_name"],
         "class_num": course["class_num"],
         "estimated_enroll": course["estimated_enroll"],
@@ -15,15 +15,17 @@ def _class_helper(course):
         "folders": course["folders"],
         "instructors": course["instructors"],
         "students": course["students"],
-        "posts_num": course["posts_num"],
+        "post_num": course["post_num"],
         "posts": course["posts"]
     }
 
 
 async def create_class(data: dict):
     """ Creates a new class with <data> """
+    # print(f"DATA: {data}, TYPE: {type(data)}")
     course = await course_collection.insert_one(data)
     new_course = await course_collection.find_one({"_id": course.inserted_id})
+    print(f"COURSE: {new_course}")
     return _class_helper(new_course)
 
 
@@ -45,7 +47,7 @@ async def get_post_by_index(id: str, ind: int):
     """Get a single post with index = <ind> from all posts in class with
     _id = <ObjectID(id)>"""
     posts = await get_all_posts(id)
-    if posts:
+    if posts and len(posts) > 0:
         return posts[ind]
 
 
@@ -56,7 +58,7 @@ async def update_post(id: str, ind: int, data: dict):
     post = await get_post_by_index(id, ind)
     if post:
         updated_post = await course_collection.update_one(
-            {"_id": ObjectId(id)}, {"$set": data}
+            {"$set": data}
         )
         if updated_post:
             return True

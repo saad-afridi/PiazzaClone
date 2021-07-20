@@ -1,9 +1,11 @@
 from fastapi import FastAPI
 
+from server.routes.course import router as ClassRouter
 from server.routes.student import router as StudentRouter
 
 app = FastAPI()
 
+app.include_router(ClassRouter, tags=['Class'], prefix='')
 app.include_router(StudentRouter, tags=['Student'], prefix='/student')
 
 

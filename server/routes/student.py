@@ -24,7 +24,7 @@ router = APIRouter()
 
 @router.get('/', response_description="Get all Students")
 async def get_all_students():
-    all_students = retrieve_students()
+    all_students = await retrieve_students()
     return ResponseModel(all_students, "Retrieved all students sucessfully.")
 
 

@@ -39,7 +39,8 @@ async def retrieve_students():
 
 async def add_student(student_data: dict):
     student = await student_collection.insert_one(student_data)
-    new_student = await student_collection.find_one({"_id": student.inserted_id})
+    new_student = await student_collection.find_one(
+        {"_id": student.inserted_id})
     return student_hlper(new_student)
 
 # Retrieve a student with matching ID
