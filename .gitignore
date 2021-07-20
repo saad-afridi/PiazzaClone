@@ -9,6 +9,7 @@ info.txt
 
 # ignoring pycache 
 __pycache__
+.pytest_cache
 
 
  

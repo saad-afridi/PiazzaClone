@@ -20,12 +20,20 @@ def _class_helper(course):
     }
 
 
+async def get_all_courses():
+    courses = []
+    async for course in course_collection.find():
+        changed_course = _class_helper(course)
+        del changed_course["posts"]
+        courses.append(changed_course)
+    return courses
+
+
 async def create_class(data: dict):
     """ Creates a new class with <data> """
     # print(f"DATA: {data}, TYPE: {type(data)}")
     course = await course_collection.insert_one(data)
     new_course = await course_collection.find_one({"_id": course.inserted_id})
-    print(f"COURSE: {new_course}")
     return _class_helper(new_course)
 
 
@@ -46,20 +54,24 @@ async def get_all_posts(id: str):
 async def get_post_by_index(id: str, ind: int):
     """Get a single post with index = <ind> from all posts in class with
     _id = <ObjectID(id)>"""
-    posts = await get_all_posts(id)
-    if posts and len(posts) > 0:
-        return posts[ind]
+    course = await get_class(id)
+    if course["post_num"] < 0 or course["post_num"] <= ind:
+        return False
+    return course["posts"][ind]
 
 
 async def update_post(id: str, ind: int, data: dict):
-    """ Updates a post in class <id> and has <ind> with new <data>"""
+    """ Updates a single field in class <id> and has post <ind> with new <data>"""
     if len(data) < 1:
         return False
     post = await get_post_by_index(id, ind)
     if post:
+        for field in post:
+            if field not in data:
+                data[field] = post[field]
         updated_post = await course_collection.update_one(
-            {"$set": data}
-        )
+            {"_id": ObjectId(id)},
+            {"$set": {"posts." + str(ind): data}}, upsert=False)
+        print(f"UPDATED P: {updated_post}")
         if updated_post:
-            return True
-        return False
+            return data

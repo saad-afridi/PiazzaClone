@@ -12,6 +12,26 @@ class PostSchema(BaseModel):
     follow_ups: List[str] = Field(...)
     replies: List[str] = Field(...)
 
+    class Config:
+        schema_extra = {
+            "example": {
+                "index": 0,
+                "category": "question",
+                "post_to": "entire_class",
+                "folders": "midterm",
+                "summary": "Why was the midterm so hard?",
+                "details": ("I was stuck on q3 for most of the test "
+                            "and I didnt even have enough time to "
+                            "finish the whole thing"),
+                "follow_ups": ["Yeah, Q3 was REALLY hard!",
+                               "Nah it wasnt that bad"],
+                "replies": ["Yeah, It was pretty bad",
+                            "I thought I made the test easier than "
+                            "past offerrings. We will mark easy dont "
+                            "worry!"]
+            }
+        }
+
 
 class UpdatePost(BaseModel):
     index: Optional[int] = None
@@ -22,6 +42,13 @@ class UpdatePost(BaseModel):
     details: Optional[str] = None
     follow_ups: List[str] = None
     replies: List[str] = None
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "summary": "Why was the midterm so easy?"
+            }
+        }
 
 
 class ClassSchema(BaseModel):
