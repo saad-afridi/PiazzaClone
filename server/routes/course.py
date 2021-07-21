@@ -15,21 +15,21 @@ INDEX_DESC = "The index of the post"
 
 # ------------------- ClASS SPECIFIC METHODS -----------------------------
 
-@router.get('/get-classes')
-async def get_all_classes():
+@router.get('/get-courses')
+async def get_all_courses():
     all_courses = await db.get_all_courses()
     return ResponseModel(all_courses, "Got courses successfully.")
 
 
-@router.post('/create-class')
-async def add_class(course: ClassSchema = Body(...)):
+@router.post('/create-course')
+async def add_course(course: ClassSchema = Body(...)):
     dict_course = course.dict()
     new_course = await db.create_class(dict_course)
     return ResponseModel(new_course, "Course made successfully.")
 
 
 @router.get('/{id}')
-async def get_class_with_id(id: str = Path(None, description=ID_DESC)):
+async def get_course_with_id(id: str = Path(None, description=ID_DESC)):
     course = await db.get_class(id)
     if course:
         return ResponseModel(course, "Got Course {} successfully!".format(id))
@@ -39,7 +39,7 @@ async def get_class_with_id(id: str = Path(None, description=ID_DESC)):
 # ------------------- POST SPECIFIC METHODS ------------------------------
 
 @router.get('/{id}/get-post')
-async def get_all_class_posts(id: str = Path(None, description=ID_DESC)):
+async def get_all_course_posts(id: str = Path(None, description=ID_DESC)):
     posts = await db.get_all_posts(id)
     if posts:
         return ResponseModel(posts, "Got all posts!")
