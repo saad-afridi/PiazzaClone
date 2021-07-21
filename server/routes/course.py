@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Body, Path, Query, HTTPException
+from fastapi import APIRouter, Body, Path, HTTPException
 
 import server.databases.course as db
 

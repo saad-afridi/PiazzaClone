@@ -1,15 +1,9 @@
 from typing import Optional, List
-from enum import Enum
 from pydantic import EmailStr, BaseModel, Field
 
 
-class UserCategory(str, Enum):
-    student: 'student'
-    instructor: 'instructor'
-
-
 class UserSchema(BaseModel):
-    category: UserCategory = Field(..., Alias="Type")
+    category: str = Field(..., Alias="Type")
     school_name: str = Field(...)
     courses: list = Field(...)
     name: str = Field(...)
@@ -30,7 +24,7 @@ class UserSchema(BaseModel):
 
 
 class UpdateUser(BaseModel):
-    category: Optional[UserCategory] = None
+    category: Optional[str] = None
     school_name: Optional[str] = None
     courses: Optional[list] = None
     name: Optional[str] = None

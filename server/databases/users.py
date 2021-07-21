@@ -13,6 +13,14 @@ async def get_all_users() -> list:
     return users
 
 
+async def login(email: str, password: str) -> dict:
+    """ Find a user given email """
+    if email:
+        user = await user_collection.find_one({"email": email})
+        if user and password == user["password"]:
+            return convert_helper(user)
+
+
 async def create_user(data: dict) -> dict:
     """ Creates a User in the collection given <data> """
     if len(data) < 1:
@@ -22,12 +30,12 @@ async def create_user(data: dict) -> dict:
     return convert_helper(new_user)
 
 
-async def update_user(id: str, data: dict) -> dict:
+async def update_user(email: str, data: dict) -> dict:
     """ Updates a User in the collection given their <id> and new <data> """
     if len(data) < 1:
         return
     u_user = user_collection.update_one(
-        {"_id": ObjectId(id)},
+        {"email": email},
         {"$set": data}
     )
     if u_user:

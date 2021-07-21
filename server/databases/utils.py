@@ -15,6 +15,6 @@ database = client.PiazzaClone
 def convert_helper(data):
     """ Converts the _id attribute in data to id
     and from type ObjectId to str """
-    ans = {k: v for k, v in data.dict().items() if k != "_id"}
+    ans = {k: v for k, v in data.items() if k != "_id"}
     ans["id"] = str(data["_id"])
     return ans
