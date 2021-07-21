@@ -42,7 +42,7 @@ async def get_class_with_id(id: str = Path(None, description=ID_DESC)):
 async def get_all_class_posts(id: str = Path(None, description=ID_DESC)):
     posts = await db.get_all_posts(id)
     if posts:
-        return ResponseModel(posts, "Got all posts successfully")
+        return ResponseModel(posts, "Got all posts!")
     raise HTTPException(status_code=404, detail="Could not get all posts.")
 
 
@@ -51,14 +51,17 @@ async def get_post_by_index(id: str = Path(None, description=ID_DESC),
                             ind: int = Path(None, description=INDEX_DESC)):
     post = await db.get_post_by_index(id, ind)
     if post:
-        return ResponseModel(post, "Got post successfully!")
+        return ResponseModel(post, "Got post!")
     raise HTTPException(status_code=404, detail="Could not get post.")
 
 
 @router.post('/{id}/create-post')
 async def create_post(id: str = Path(None, description=ID_DESC),
-                      post: PostSchema = Body(...)):
-    # TODO:
+                      req: PostSchema = Body(...)):
+    req = {k: v for k, v in req.dict().items() if v is not None}
+    post = await db.create_post(id, req)
+    if post:
+        return ResponseModel(post, "Post created!")
     raise HTTPException(status_code=404, detail="Post not created")
 
 

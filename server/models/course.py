@@ -23,12 +23,8 @@ class PostSchema(BaseModel):
                 "details": ("I was stuck on q3 for most of the test "
                             "and I didnt even have enough time to "
                             "finish the whole thing"),
-                "follow_ups": ["Yeah, Q3 was REALLY hard!",
-                               "Nah it wasnt that bad"],
-                "replies": ["Yeah, It was pretty bad",
-                            "I thought I made the test easier than "
-                            "past offerrings. We will mark easy dont "
-                            "worry!"]
+                "follow_ups": [],
+                "replies": []
             }
         }
 
