@@ -23,7 +23,10 @@ async def login(email: str, password: str) -> dict:
 
 async def create_user(data: dict) -> dict:
     """ Creates a User in the collection given <data> """
-    if len(data) < 1:
+    if len(data) < 1 or "email" not in data:
+        return
+    user_exists = await user_collection.find_one({"email": data["email"]})
+    if user_exists:
         return
     user = await user_collection.insert_one(data)
     new_user = await user_collection.find_one({"_id": user.inserted_id})

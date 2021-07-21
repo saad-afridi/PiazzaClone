@@ -1,5 +1,5 @@
 from typing import Optional, List
-from pydantic import EmailStr, BaseModel, Field
+from pydantic import EmailStr, BaseModel, Field, validator
 
 
 class UserSchema(BaseModel):
@@ -10,6 +10,19 @@ class UserSchema(BaseModel):
     email: EmailStr = Field(...)
     password: str = Field(...)
 
+    @validator('category')
+    def category_is_instructor_or_student(cls, v):
+        if v != 'student' and v != 'instructor':
+            raise ValueError('Must either be <student> or <instructor>')
+        return v
+
+    @validator('password')
+    def password_is_atleast_six_characters(cls, v):
+        print(len(v))
+        if len(v) < 6:
+            raise ValueError('Password must be atleast 6 characters long')
+        return v
+
     class Config:
         schema_extra = {
             "example": {
@@ -18,7 +31,7 @@ class UserSchema(BaseModel):
                 "courses": [],
                 "name": "John Rose",
                 "email": "ta1@utoronto.ca",
-                "password": "Ilove"
+                "password": "Ilove24"
             }
         }
 
@@ -31,7 +44,19 @@ class UpdateUser(BaseModel):
     email: Optional[EmailStr] = None
     password: Optional[str] = None
 
-    class Congif:
+    @validator('category')
+    def category_is_instructor_or_student(cls, v):
+        if v != 'student' and v != 'instructor':
+            raise ValueError('Must either be <student> or <instructor>')
+        return v
+
+    @validator('password')
+    def password_is_atleast_six_characters(cls, v):
+        if len(v) < 6:
+            raise ValueError('Password must be atleast 6 characters long')
+        return v
+
+    class Config:
         schema_extra = {
             "example": {
                 "name": "Rose Lisa",

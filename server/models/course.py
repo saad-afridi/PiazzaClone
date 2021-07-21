@@ -1,5 +1,9 @@
 from typing import Optional, List, Dict, Set
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, Field, EmailStr, validator
+
+
+post_types = ["question", "note", "poll"]
+post_readers = ["entire_class", "instructors"]
 
 
 class PostSchema(BaseModel):
@@ -11,6 +15,18 @@ class PostSchema(BaseModel):
     details: str = Field(...)
     follow_ups: List[str] = Field(...)
     replies: List[str] = Field(...)
+
+    @validator('category')
+    def category_is_one_of_posttype(cls, v):
+        if v not in post_types:
+            raise ValueError('invalid post category')
+        return v
+
+    @validator('post_to')
+    def post_to_one_of_post_readers(cls, v):
+        if v not in post_readers:
+            raise ValueError('invalid post to')
+        return v
 
     class Config:
         schema_extra = {
@@ -38,6 +54,18 @@ class UpdatePost(BaseModel):
     details: Optional[str] = None
     follow_ups: List[str] = None
     replies: List[str] = None
+    
+    @validator('category')
+    def category_is_one_of_posttype(cls, v):
+        if v not in post_types:
+            raise ValueError('invalid post category')
+        return v
+
+    @validator('post_to')
+    def post_to_one_of_post_readers(cls, v):
+        if v not in post_readers:
+            raise ValueError('invalid post to')
+        return v
 
     class Config:
         schema_extra = {
