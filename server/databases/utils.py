@@ -10,3 +10,11 @@ MONGO_DETAILS = os.environ.get('MONGO_ATLAS_URI')
 client = m_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
 
 database = client.PiazzaClone
+
+
+def convert_helper(data):
+    """ Converts the _id attribute in data to id
+    and from type ObjectId to str """
+    ans = {k: v for k, v in data.dict().items() if k != "_id"}
+    ans["id"] = str(data["_id"])
+    return ans

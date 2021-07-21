@@ -34,7 +34,7 @@ This will be a representation of what user collection in Piazza might look like 
         _id: ObjectID()
         type: "instructor",
         school_name: "UofT",
-        class: [ObjectID(), ...],
+        courses: [ObjectID(), ...],
         name: "John Rose"
         email: "ta1@utoronto.ca",
         password: "Ilove"
@@ -43,7 +43,7 @@ This will be a representation of what user collection in Piazza might look like 
         _id: ObjectID()
         type: "student",
         school_name: "UofT",
-        class: [ObjectID(), ...],
+        courses: [ObjectID(), ...],
         name: "Kandice Dog",
         email: "kandice@utoronto.ca",
         password: "password"
