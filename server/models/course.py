@@ -54,7 +54,7 @@ class UpdatePost(BaseModel):
     details: Optional[str] = None
     follow_ups: List[str] = None
     replies: List[str] = None
-    
+
     @validator('category')
     def category_is_one_of_posttype(cls, v):
         if v not in post_types:

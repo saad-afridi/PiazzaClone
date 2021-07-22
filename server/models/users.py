@@ -18,7 +18,6 @@ class UserSchema(BaseModel):
 
     @validator('password')
     def password_is_atleast_six_characters(cls, v):
-        print(len(v))
         if len(v) < 6:
             raise ValueError('Password must be atleast 6 characters long')
         return v

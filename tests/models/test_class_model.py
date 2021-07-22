@@ -4,8 +4,11 @@ from server.models.course import (
     UpdateClass,
     UpdatePost)
 
+import pytest
+
 
 def test_class_model_to_dict():
+    """ Test if class model is converting to dict properly """
 
     post1 = PostSchema(
         summary="Why was the midterm so hard?",
@@ -46,6 +49,7 @@ def test_class_model_to_dict():
 
 
 def test_post_update():
+    """ Test if post is updated properly """
 
     post1 = PostSchema(
         summary="Why was the midterm so hard?",
@@ -61,3 +65,22 @@ def test_post_update():
     assert post1.summary == update_post1.summary
     assert update_post1.category is None
     assert update_post1.details is None and update_post1.follow_ups is None
+
+
+def test_post_validation():
+    """ Test if post is validating category &
+    post_to attributes properly """
+
+    with pytest.raises(ValueError):
+        post1 = PostSchema(
+            summary="Content", details="Random Stuff",
+            follow_ups=[], replies=[], index=0,
+            post_to="wrong", category="question"
+        )
+
+    with pytest.raises(ValueError):
+        post1 = PostSchema(
+            summary="Content", details="Random Stuff",
+            follow_ups=[], replies=[], index=0,
+            post_to="entire_class", category="wrong"
+        )
