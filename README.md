@@ -1,11 +1,16 @@
 # PiazzaClone
 
-A Full Stack Application for a POC of a piazza-based bot. Made using the **FARM** Stack i.e. FastAPI, React and MongoDB.
+A Full Stack Application for a POC of a piazza-based bot. Made using the **FARM** Stack i.e. **F**ast**A**PI, **R**eact and **M**ongoDB.
+
+### Technology and Tools
+
+![](https://img.shields.io/badge/Database-MongoDB-informational?style=flat&logo=logo_name&logoColor=white&color=19A062)  ![](https://img.shields.io/badge/Backend-FastAPI-informational?style=flat&logo=logo_name&logoColor=white&color=19A062) ![](https://img.shields.io/badge/Frontend-React-informational?style=flat&logo=logo_name&logoColor=white&color=19A062)
+
 
 ### Setting Up (Windows)
 
 ```bash
-# Clone the repository
+# clone the repo
 git clone https://github.com/saad-afridi/PiazzaClone
 ```
 
