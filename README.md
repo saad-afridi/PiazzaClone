@@ -45,31 +45,9 @@ npm start
 ```
 
 
-# 4↴
+    4↴
     code block outside of a list
 
 - Main list
-#     8↴
-        code block
-# 4↴
-    - sub list
-
-#        12↴
+          8↴
             code block
-#     8↴
-        <!-- --> # can also be used to set highlighting <!-- language: lang-none -->
-#        12↴
-            second code block
-#     8↴
-        - sub<sup>2</sup> list
-
-#            16↴
-                code block
-#        12↴
-            - sub<sup>3</sup> list
-#                20↴
-                    code block
-#     8↴
-        <!-- -->
-#        12↴
-            up two list levels
