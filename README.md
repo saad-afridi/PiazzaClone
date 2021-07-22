@@ -1,2 +1,3 @@
 # PiazzaClone
-A Website made for a POC for a piazza-based bot. Made using FastAPI, MongoDB and Flask.
+
+The Backend for a POC for a piazza-based bot. Made using FastAPI and MongoDB.
