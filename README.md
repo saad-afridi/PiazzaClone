@@ -12,6 +12,7 @@ git clone https://github.com/saad-afridi/PiazzaClone
 cd backend
 
 # Create and activate virtual environment (can SKIP)
+pip install virtualenv
 virtualenv <virtual environment name>
 venv\Scripts\activate.bat
 
