@@ -2,14 +2,14 @@
 
 A Full Stack Application for a POC of a piazza-based bot. Made using the **FARM** Stack i.e. FastAPI, React and MongoDB.
 
-#### Setting Up (Windows)
+### Setting Up (Windows)
 
 ```bash
 # Clone the repository
 git clone https://github.com/saad-afridi/PiazzaClone
 ```
 
-##### Backend
+#### Backend
 
 ```bash
 # Go into the backend
@@ -30,7 +30,7 @@ echo MONGO_ATLAS_URI=mongodb+srv://... > .env
 python main.py
 ```
 
-##### Frontend
+#### Frontend
 
 ```bash
 # Go into frontend
