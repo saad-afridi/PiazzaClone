@@ -43,11 +43,3 @@ cd frontend
 # Start the application
 npm start
 ```
-
-
-    4↴
-    code block outside of a list
-
-- Main list
-          8↴
-            code block
