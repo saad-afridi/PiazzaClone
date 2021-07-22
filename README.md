@@ -11,12 +11,8 @@ git clone https://github.com/saad-afridi/PiazzaClone
 # Go into the backend
 cd backend
 
-# Create a virtual environment 
-# (skip if downloading dependencies globally)
+# Create and activate virtual environment (can SKIP)
 virtualenv <virtual environment name>
-
-# Activate the virtual environment 
-# (skip if downloading dependencies globally)
 venv\Scripts\activate.bat
 
 # After skipping the virtual environment setup/or not
