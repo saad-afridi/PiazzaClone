@@ -15,7 +15,7 @@ cd backend
 virtualenv <virtual environment name>
 venv\Scripts\activate.bat
 
-# After skipping the virtual environment setup/or not
+# Downloading dependencies
 pip install -r requirements.txt
 
 # Setup your mongo database
