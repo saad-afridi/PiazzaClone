@@ -3,10 +3,6 @@
 .env
 /.vscode 
 
-# my custom API 
-/misc
-info.txt
-
 # ignoring pycache 
 __pycache__
 .pytest_cache
