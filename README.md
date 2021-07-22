@@ -5,37 +5,37 @@ A Full Stack Application for a POC of a piazza-based bot. Made using the **FARM*
 ### Setting Up (Windows)
 
 ```bash
-:: Clone the repository
+# Clone the repository
 git clone https://github.com/saad-afridi/PiazzaClone
 ```
 
 #### Backend
 
 ```bash
-:: Go into the backend
+# Go into the backend
 cd backend
 
-:: Create and activate virtual environment (can SKIP)
+# Create and activate virtual environment (can SKIP)
 pip install virtualenv
-virtualenv <virtual environment name>
+virtualenv venv
 venv\Scripts\activate.bat
 
-:: Downloading dependencies
+# Downloading dependencies
 pip install -r requirements.txt
 
-:: Setup your mongo database
+# Setup your mongo database
 echo MONGO_ATLAS_URI=mongodb+srv://... > .env
 
-:: Run the server
+# Run the server
 python main.py
 ```
 
 #### Frontend
 
 ```bash
-:: Go into frontend
+# Go into frontend
 cd frontend
 
-:: Start the application
+# Start the application
 npm start
 ```
