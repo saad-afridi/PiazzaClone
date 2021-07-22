@@ -1,13 +1,17 @@
 # PiazzaClone
 
-A Full Stack Application for a POC of a piazza-based bot. Made using the FARM Stack i.e.  FastAPI, React and MongoDB.
+A Full Stack Application for a POC of a piazza-based bot. Made using the **FARM** Stack i.e. FastAPI, React and MongoDB.
 
-### Setting up the backend (Windows)
+#### Setting Up (Windows)
 
 ```bash
 # Clone the repository
 git clone https://github.com/saad-afridi/PiazzaClone
+```
 
+##### Backend
+
+```bash
 # Go into the backend
 cd backend
 
@@ -24,4 +28,14 @@ echo MONGO_ATLAS_URI=mongodb+srv://... > .env
 
 # Run the server
 python main.py
+```
+
+##### Frontend
+
+```bash
+# Go into frontend
+cd frontend
+
+# Start the application
+npm start
 ```
