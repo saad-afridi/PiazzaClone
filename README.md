@@ -2,7 +2,7 @@
 
 A Full Stack Application for a POC of a piazza-based bot. Made using the FARM Stack i.e.  FastAPI, React and MongoDB.
 
-### Setting up the backend (Local & Windows OS)
+### Setting up the backend (Windows)
 
 ```bash
 # Clone the repository
