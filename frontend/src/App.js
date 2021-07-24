@@ -1,9 +1,9 @@
-import React from "react";
-import AppRouter from "./AppRouter";
+import React from 'react';
+import AppRouter from './AppRouter';
 
-import { Container } from "@material-ui/core";
-import { createTheme, ThemeProvider } from '@material-ui/core/styles'
-import { teal, grey } from '@material-ui/core/colors'
+import { Grid, makeStyles } from '@material-ui/core';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { teal, grey } from '@material-ui/core/colors';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 let theme = createTheme({
@@ -27,20 +27,24 @@ let theme = createTheme({
 		text: {
 			primary: '#FFFFFFCC',
 		},
-	}
+	},
 });
 
+
 function App() {
-  return (
-		<div className="App">
-			<Container>
-                <ThemeProvider theme={theme}>
-                    <CssBaseline />
-                    <AppRouter />
-                </ThemeProvider>
-            </Container>
-		</div>
-  );
+
+	return (
+		<Grid container alignItems="center" justifyContent="center">
+			<ThemeProvider theme={theme}>
+				<link
+					rel="stylesheet"
+					href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+				/>
+				<CssBaseline />
+				<AppRouter />
+			</ThemeProvider>
+		</Grid>
+	);
 }
 
 export default App;
