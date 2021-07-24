@@ -1,0 +1,18 @@
+Pages and Interactions
+
+Go to website
+
+Auth Page
+-> prompted to either login/signup as instructor or student (2 buttons)
+    Login
+    -> form to enter email, & password
+    Signup 
+    -> form to enter email, password, full name & school name  
+
+    (if student) -> select form with all the classes of that school 
+    (if instructor) -> create new class or join one existing class 
+        (if create new class) -> form with all class attributes needed
+
+Class Pages
+
+

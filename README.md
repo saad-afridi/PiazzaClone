@@ -40,6 +40,9 @@ python main.py
 # Go into frontend
 cd frontend
 
+# download dependencies
+npm install
+
 # Start the application
 npm start
 ```
