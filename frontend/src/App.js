@@ -1,7 +1,7 @@
 import React from 'react';
 import AppRouter from './AppRouter';
 
-import { Grid, makeStyles } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { teal, grey } from '@material-ui/core/colors';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -30,9 +30,7 @@ let theme = createTheme({
 	},
 });
 
-
 function App() {
-
 	return (
 		<Grid container alignItems="center" justifyContent="center">
 			<ThemeProvider theme={theme}>

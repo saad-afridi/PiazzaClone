@@ -2,28 +2,30 @@ import React from 'react';
 import PageHeader from '../../components/utils/PageHeader';
 import { Grid, TextField, Button, makeStyles } from '@material-ui/core';
 
-import { useDispatch } from 'react-redux'
-import { tryLogin } from '../../actions/authActions'
+import { useDispatch } from 'react-redux';
+import { tryLogin } from '../../actions/authActions';
 
 const useStyles = makeStyles((theme) => ({
-    loginForm: {
-        backgroundColor: theme.palette.elevated[1]
-    }
+	loginForm: {
+		backgroundColor: theme.palette.elevated[1],
+	},
 }));
 
 const Login = () => {
-    const classes = useStyles();
+	const classes = useStyles();
 	const [email, setEmail] = React.useState('');
 	const [pass, setPass] = React.useState('');
 
-    const dispatch = useDispatch();
-
-    const stateProps = { email, pass, dispatch };
+	const dispatch = useDispatch();
 
 	return (
 		<Grid item>
 			<PageHeader label={'Login'}></PageHeader>
-			<Grid container direction="column" spacing={3} className={classes.loginForm}>
+			<Grid
+				container
+				direction="column"
+				spacing={3}
+				className={classes.loginForm}>
 				<Grid item>
 					<TextField
 						variant="filled"
@@ -43,20 +45,15 @@ const Login = () => {
 					<Button
 						variant="contained"
 						color="primary"
-						onClick={() => submitForm(stateProps)}>
+						onClick={() =>
+							dispatch(tryLogin({ email, password: pass }))
+						}>
 						Confirm
 					</Button>
 				</Grid>
 			</Grid>
 		</Grid>
 	);
-};
-
-const submitForm = (stateProps) => {
-
-    const {email, pass, dispatch} = stateProps;
-    dispatch(tryLogin({email, password: pass}));
-	console.log('submitting form!');
 };
 
 export default Login;

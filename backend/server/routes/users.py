@@ -14,8 +14,8 @@ async def get_all_users():
     return ResponseModel(all_users, "Got users successfully")
 
 
-@router.post('/create-user')
-async def create_user(user: UserSchema = Body(...)):
+@router.post('/register')
+async def try_register(user: UserSchema = Body(...)):
     dict_user = user.dict()
     new_user = await db.create_user(dict_user)
     if new_user:

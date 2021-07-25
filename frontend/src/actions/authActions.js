@@ -10,10 +10,26 @@ export const tryLogin = (userData) => (dispatch) => {
 		.post('/login', userData, header_info)
 		.then((res) => {
 			console.log(res);
-            return dispatch({
-                type: 'USER-LOGIN',
-                payload: res.data
-            })
+			return dispatch({
+				type: 'USER-LOGIN',
+				payload: res.data.payload,
+			});
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+};
+
+export const tryRegister = (userData) => (dispatch) => {
+	console.log(userData);
+	axios
+		.post('/register', userData, header_info)
+		.then((res) => {
+			console.log(res);
+			return dispatch({
+				type: 'USER-LOGIN',
+				payload: res.data.payload,
+			});
 		})
 		.catch((err) => {
 			console.log(err);

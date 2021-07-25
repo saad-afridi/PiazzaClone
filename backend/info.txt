@@ -33,7 +33,6 @@ This will be a representation of what user collection in Piazza might look like 
     {
         _id: ObjectID()
         category: "instructor",
-        school_name: "UofT",
         courses: [ObjectID(), ...],
         name: "John Rose"
         email: "ta1@utoronto.ca",
@@ -42,7 +41,6 @@ This will be a representation of what user collection in Piazza might look like 
     {
         _id: ObjectID()
         category: "student",
-        school_name: "UofT",
         courses: [ObjectID(), ...],
         name: "Kandice Dog",
         email: "kandice@utoronto.ca",
@@ -75,7 +73,7 @@ The errors can range from something like:
 
 Responses are: 
 {
-    data: <main content>,
+    payload: <main content>,
     code: <status code>,
     msg: ...
 }

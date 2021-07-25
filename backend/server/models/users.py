@@ -4,7 +4,6 @@ from pydantic import EmailStr, BaseModel, Field, validator
 
 class UserSchema(BaseModel):
     category: str = Field(..., Alias="Type")
-    school_name: str = Field(...)
     courses: list = Field(...)
     name: str = Field(...)
     email: EmailStr = Field(...)
@@ -37,7 +36,6 @@ class UserSchema(BaseModel):
 
 class UpdateUser(BaseModel):
     category: Optional[str] = None
-    school_name: Optional[str] = None
     courses: Optional[list] = None
     name: Optional[str] = None
     email: Optional[EmailStr] = None
