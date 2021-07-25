@@ -37,7 +37,7 @@ async def update_user(email: str, data: dict) -> dict:
     """ Updates a User in the collection given their <id> and new <data> """
     if len(data) < 1:
         return
-    u_user = user_collection.update_one(
+    u_user = await user_collection.update_one(
         {"email": email},
         {"$set": data}
     )

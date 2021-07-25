@@ -25,7 +25,7 @@ async def get_all_courses():
 async def add_course(course: ClassSchema = Body(...)):
     dict_course = course.dict()
     new_course = await db.create_class(dict_course)
-    return ResponseModel(new_course, "Course made successfully.")
+    return ResponseModel(new_course, "Course made successfully.", 201)
 
 
 @router.get('/{id}')
@@ -61,7 +61,7 @@ async def create_post(id: str = Path(None, description=ID_DESC),
     req = {k: v for k, v in req.dict().items() if v is not None}
     post = await db.create_post(id, req)
     if post:
-        return ResponseModel(post, "Post created!")
+        return ResponseModel(post, "Post created!", 201)
     raise HTTPException(status_code=404, detail="Post not created")
 
 

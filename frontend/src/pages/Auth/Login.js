@@ -1,15 +1,29 @@
 import React from 'react';
 import PageHeader from '../../components/utils/PageHeader';
-import { Grid, Typography, TextField, Button } from '@material-ui/core';
+import { Grid, TextField, Button, makeStyles } from '@material-ui/core';
+
+import { useDispatch } from 'react-redux'
+import { tryLogin } from '../../actions/authActions'
+
+const useStyles = makeStyles((theme) => ({
+    loginForm: {
+        backgroundColor: theme.palette.elevated[1]
+    }
+}));
 
 const Login = () => {
+    const classes = useStyles();
 	const [email, setEmail] = React.useState('');
 	const [pass, setPass] = React.useState('');
+
+    const dispatch = useDispatch();
+
+    const stateProps = { email, pass, dispatch };
 
 	return (
 		<Grid item>
 			<PageHeader label={'Login'}></PageHeader>
-			<Grid container direction="column" spacing={3}>
+			<Grid container direction="column" spacing={3} className={classes.loginForm}>
 				<Grid item>
 					<TextField
 						variant="filled"
@@ -29,7 +43,7 @@ const Login = () => {
 					<Button
 						variant="contained"
 						color="primary"
-						onClick={(e) => submitForm(e)}>
+						onClick={() => submitForm(stateProps)}>
 						Confirm
 					</Button>
 				</Grid>
@@ -38,7 +52,10 @@ const Login = () => {
 	);
 };
 
-const submitForm = () => {
+const submitForm = (stateProps) => {
+
+    const {email, pass, dispatch} = stateProps;
+    dispatch(tryLogin({email, password: pass}));
 	console.log('submitting form!');
 };
 

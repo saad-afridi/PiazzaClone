@@ -55,3 +55,27 @@ Models (a schema for what the data should look like)
 Databases (database manipulation related to that specific collection)
 Routes import Models and Databases to combine everything
 App contains all the routes 
+
+
+The errors can range from something like:
+
+{ 
+    "detail": <content> 
+},
+{
+    detail: [
+        {
+            loc: <content>,
+            body: <content>
+        }
+        msg: <content>
+        ...
+    ],
+}
+
+Responses are: 
+{
+    data: <main content>,
+    code: <status code>,
+    msg: ...
+}
