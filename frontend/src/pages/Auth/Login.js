@@ -5,6 +5,8 @@ import { Grid, TextField, Button, makeStyles } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { tryLogin } from '../../actions/authActions';
 
+import { useHistory } from 'react-router';
+
 const useStyles = makeStyles((theme) => ({
 	loginForm: {
 		backgroundColor: theme.palette.elevated[1],
@@ -17,6 +19,9 @@ const Login = () => {
 	const [pass, setPass] = React.useState('');
 
 	const dispatch = useDispatch();
+	const history = useHistory();
+
+	const stateProps = { email, pass, dispatch, history };
 
 	return (
 		<Grid item>
@@ -45,15 +50,18 @@ const Login = () => {
 					<Button
 						variant="contained"
 						color="primary"
-						onClick={() =>
-							dispatch(tryLogin({ email, password: pass }))
-						}>
+						onClick={() => submitForm(stateProps)}>
 						Confirm
 					</Button>
 				</Grid>
 			</Grid>
 		</Grid>
 	);
+};
+
+const submitForm = (stateProps) => {
+	const { email, pass, dispatch, history } = stateProps;
+	dispatch(tryLogin({ email, password: pass }, history));
 };
 
 export default Login;

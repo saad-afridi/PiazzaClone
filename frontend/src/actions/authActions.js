@@ -4,12 +4,11 @@ axios.defaults.baseURL = 'http://127.0.0.1:8000';
 
 const header_info = { 'Content-type': 'application/json' };
 
-export const tryLogin = (userData) => (dispatch) => {
-	console.log(userData);
+export const tryLogin = (userData, history) => (dispatch) => {
 	axios
 		.post('/login', userData, header_info)
 		.then((res) => {
-			console.log(res);
+            history.push('/')
 			return dispatch({
 				type: 'USER-LOGIN',
 				payload: res.data.payload,
@@ -20,12 +19,11 @@ export const tryLogin = (userData) => (dispatch) => {
 		});
 };
 
-export const tryRegister = (userData) => (dispatch) => {
-	console.log(userData);
+export const tryRegister = (userData, history) => (dispatch) => {
 	axios
 		.post('/register', userData, header_info)
 		.then((res) => {
-			console.log(res);
+            history.push('/');
 			return dispatch({
 				type: 'USER-LOGIN',
 				payload: res.data.payload,
