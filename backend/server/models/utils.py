@@ -1,6 +1,6 @@
-def ResponseModel(data, message, code=200):
+def ErrorModel(loc=[], msg="", error_type=""):
     return {
-        "payload": data,
-        "code": code,
-        "msg": message
+        "loc": loc,
+        "msg": msg,
+        "type": error_type
     }

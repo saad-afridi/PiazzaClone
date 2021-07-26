@@ -3,7 +3,7 @@ from fastapi import APIRouter, Body, Path, Query, HTTPException
 import server.databases.users as db
 
 from server.models.users import (UserSchema, UpdateUser)
-from server.models.utils import ResponseModel
+from server.models.utils import ErrorModel
 
 router = APIRouter()
 

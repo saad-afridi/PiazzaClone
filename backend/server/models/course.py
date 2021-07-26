@@ -7,7 +7,7 @@ post_readers = ["entire_class", "instructors"]
 
 
 class PostSchema(BaseModel):
-    index: int = 0
+    index: Optional[int] = 0
     category: str = "question"
     post_to: str = "entire_class"
     folders: str = "general"
@@ -102,12 +102,25 @@ class ClassSchema(BaseModel):
                 "students": ["ak@utoronto.ca", "abij@utoronto.ca",
                              "kandice@utoronto.ca"],
                 "post_num": 1,
-                "posts": []
+                "posts": [{
+                    "index": 0,
+                    "category": "question",
+                    "post_to": "entire_class",
+                    "folders": "midterm",
+                    "summary": "Why was the midterm so hard?",
+                    "details": ("I was stuck on q3 for most of the test "
+                                "and I didnt even have enough time to "
+                                "finish the whole thing"),
+                    "follow_ups": [],
+                    "student_answer": "",
+                    "instructor_answer": ""
+                }]
             }
         }
 
 
 class ClassOutSchema(BaseModel):
+    id: str = Field(...)
     class_name: str = Field(...)
     class_num: str = Field(...)
     estimated_enroll: int = Field(..., gt=0)
@@ -120,6 +133,7 @@ class ClassOutSchema(BaseModel):
     class Config:
         schema_extra = {
             "example": {
+                "id": "60f8905176818ccf75c705e6",
                 "class_name": "Intro. To Stat",
                 "class_num": "STA256H5",
                 "estimated_enroll": 50,
