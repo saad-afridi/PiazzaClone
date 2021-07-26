@@ -9,10 +9,29 @@ Auth Page
     Signup 
     -> form to enter email, password, full name & school name  
 
-    (if student) -> select form with all the classes of that school 
+    (if student) -> select form with all the classes
     (if instructor) -> create new class or join one existing class 
         (if create new class) -> form with all class attributes needed
 
 Class Pages
 
+Bot interference ideas:
+
+(1) -  Main Bot Post (pinned) where students can type in and find stuff 
+(doesn't really do what we want i.e. we're just making
+a better search engine and not a huge chance of a large percentage of students using it)
+and then the bot can scrape and determine other similar posts and follow up with all similar posts
+
+(2) - After Bot notices a new post, it finds all the similar ones to it and follows up on the new post 
+with all similar posts and also marks the original as a duplicate <- seems to be the best way
+
+(3) - Piazza extension way (ParQR) <- not possible through API only
+
+Piazza API - (things within the bot's capability)
+
+posts: get_post, iter_all_posts, create_post, create_followup, create_instructor_answer, 
+        create_reply, update_post, mark_as_duplicate, resolve_post, pin_post, delete_post
+
+# Doesn't concern the bot
+users: get_users, iter_users, get_all_users, iter_all_users, add_students, remove_users,
 

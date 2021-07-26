@@ -10,6 +10,7 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import { createStore, compose, applyMiddleware } from 'redux';
 import rootReducer from './reducers'
+import { loadCourses } from './reducers/courseReducers';
 
 const middleware = [thunk];
 
@@ -22,6 +23,8 @@ const store = createStore(
 			compose
 	)
 )
+
+store.dispatch(loadCourses)
 
 ReactDOM.render(
 	<React.StrictMode>
