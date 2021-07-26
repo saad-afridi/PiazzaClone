@@ -14,7 +14,8 @@ class PostSchema(BaseModel):
     summary: str = Field(...)
     details: str = Field(...)
     follow_ups: List[str] = Field(...)
-    replies: List[str] = Field(...)
+    student_answer: str = Field(...)
+    instructor_answer: str = Field(...)
 
     @validator('category')
     def category_is_one_of_posttype(cls, v):
@@ -40,7 +41,8 @@ class PostSchema(BaseModel):
                             "and I didnt even have enough time to "
                             "finish the whole thing"),
                 "follow_ups": [],
-                "replies": []
+                "student_answer": "Yeah it was really hard for me too!",
+                "instructor_answer": "I thought I made it too easy actually."
             }
         }
 
@@ -53,7 +55,8 @@ class UpdatePost(BaseModel):
     summary: Optional[str] = None
     details: Optional[str] = None
     follow_ups: List[str] = None
-    replies: List[str] = None
+    student_answer: Optional[str] = None
+    instructor_answer: Optional[str] = None
 
     @validator('category')
     def category_is_one_of_posttype(cls, v):
@@ -99,24 +102,34 @@ class ClassSchema(BaseModel):
                 "students": ["ak@utoronto.ca", "abij@utoronto.ca",
                              "kandice@utoronto.ca"],
                 "post_num": 1,
-                "posts": [
-                    {
-                        "index": 0,
-                        "category": "question",
-                        "post_to": "entire_class",
-                        "folders": "midterm",
-                        "summary": "Why was the midterm so hard?",
-                        "details": ("I was stuck on q3 for most of the test "
-                                    "and I didnt even have enough time to "
-                                    "finish the whole thing"),
-                        "follow_ups": ["Yeah, Q3 was REALLY hard!",
-                                       "Nah it wasnt that bad"],
-                        "replies": ["Yeah, It was pretty bad",
-                                    "I thought I made the test easier than "
-                                    "past offerrings. We will mark easy dont "
-                                    "worry!"]
-                    }
-                ]
+                "posts": []
+            }
+        }
+
+
+class ClassOutSchema(BaseModel):
+    class_name: str = Field(...)
+    class_num: str = Field(...)
+    estimated_enroll: int = Field(..., gt=0)
+    term: str = Field(...)
+    folders: List[str] = Field(...)
+    instructors: List[EmailStr] = Field(...)
+    students: List[EmailStr] = Field(...)
+    post_num: int = 1
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "class_name": "Intro. To Stat",
+                "class_num": "STA256H5",
+                "estimated_enroll": 50,
+                "term": "FALL2020",
+                "folders": ["midterm", "exam", "general"],
+                "instructors": ["ta1@utoronto.ca",
+                                "prof1@utoronto.ca"],
+                "students": ["ak@utoronto.ca", "abij@utoronto.ca",
+                             "kandice@utoronto.ca"],
+                "post_num": 1,
             }
         }
 

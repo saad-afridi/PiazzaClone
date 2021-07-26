@@ -6,6 +6,8 @@ export default function courseReducers(state = initialState, action) {
 	switch (action.type) {
 		case 'SET-COURSES':
 			return action.payload;
+        case 'ADD-COURSES':
+            return [...state, action.payload]
 		default:
 			return state;
 	}

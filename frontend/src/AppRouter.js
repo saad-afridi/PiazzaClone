@@ -11,7 +11,7 @@ import EnrollCourse from './pages/Course/EnrollCourse'
 import { useSelector } from 'react-redux';
 
 const AppRouter = () => {
-	const { authenticated } = useSelector((state) => state.authState);
+	const { authenticated } = useSelector((state) => state.userState);
     console.log(authenticated);
 
 	return (

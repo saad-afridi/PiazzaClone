@@ -23,7 +23,7 @@ async def try_register(user: UserSchema = Body(...)):
     raise HTTPException(status_code=404, detail="User creation failed")
 
 
-@router.patch('/update-user/')
+@router.put('/update-user/')
 async def update_user(email: str = Query(None,
                                          description="Email of the user"),
                       req: UpdateUser = Body(...)):
