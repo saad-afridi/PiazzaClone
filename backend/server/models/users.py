@@ -60,3 +60,17 @@ class UpdateUser(BaseModel):
                 "email": "ru@utoronto.ca"
             }
         }
+
+
+class UserLogin(BaseModel):
+
+    email: EmailStr = Field(...)
+    password: str = Field(...)
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "email": "ru@utoronto.ca",
+                "password": "Ilovemyself"
+            }
+        }

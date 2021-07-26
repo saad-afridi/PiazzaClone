@@ -1,6 +1,8 @@
 from server.databases.utils import database, convert_helper
 from bson.objectid import ObjectId
 from typing import List
+from server.models.utils import ErrorModel
+
 
 user_collection = database.get_collection("Users")
 
@@ -13,33 +15,58 @@ async def get_all_users() -> list:
     return users
 
 
-async def login(email: str, password: str) -> dict:
-    """ Find a user given email """
-    if email:
-        user = await user_collection.find_one({"email": email})
-        if user and password == user["password"]:
-            return convert_helper(user)
-
-
-async def create_user(data: dict) -> dict:
+async def create_user(data: dict, errors: list) -> dict:
     """ Creates a User in the collection given <data> """
-    if len(data) < 1 or "email" not in data:
-        return
-    user_exists = await user_collection.find_one({"email": data["email"]})
-    if user_exists:
-        return
-    user = await user_collection.insert_one(data)
-    new_user = await user_collection.find_one({"_id": user.inserted_id})
-    return convert_helper(new_user)
+    if len(data) < 1:
+        errors.append(ErrorModel(["body"], "no data", "value_error"))
+    else:
+        user_exists = await user_collection.find_one({"email": data["email"]})
+        if user_exists:
+            errors.append(ErrorModel(["body", "email"],
+                                     "email taken",
+                                     "value_error"))
+        else:
+            user = await user_collection.insert_one(data)
+            new_user = await user_collection.find_one({"_id": user.inserted_id})
+            return convert_helper(new_user)
 
 
-async def update_user(email: str, data: dict) -> dict:
+async def update_user(email: str, data: dict, errors: list) -> dict:
     """ Updates a User in the collection given their <id> and new <data> """
     if len(data) < 1:
+        errors.append(ErrorModel(["body"], "no data", "value_error"))
+
+    # Check if user with email exists
+    user_exists = await user_collection.find_one({"email": email})
+    if not user_exists:
+        errors.append(ErrorModel(["body", "email"],
+                                 "no user with email found",
+                                 "value_error"))
         return
+    # Updating
     u_user = await user_collection.update_one(
         {"email": email},
-        {"$set": data}
+        {"$set": data},
+        upsert=False
     )
-    if u_user:
-        return data
+
+    # initailizing the missing values
+    for prop in user_exists:
+        if prop not in data:
+            data[prop] = user_exists[prop]
+    return data
+
+
+async def login(userInfo: dict, errors: list) -> dict:
+    """ Find a user given email """
+    user = await user_collection.find_one({"email": userInfo["email"]})
+    if user:
+        if user["password"] == userInfo["password"]:
+            return convert_helper(user)
+        else:
+            errors.append(ErrorModel(["body", "password"],
+                                     "password incorrect",
+                                     "value_error"))
+    else:
+        errors.append(ErrorModel(["body", "email"], "email incorrect",
+                                 "value_error"))
