@@ -19,7 +19,7 @@ const AppRouter = () => {
 	return (
 		<Switch>
 			<Route exact path="/">
-				<Auth />
+				{authenticated ? <ViewCourse /> : <Auth />}
 			</Route>
 			<Route path="/login">
 				<Login />

@@ -8,7 +8,7 @@ export const tryLogin = (userData, history) => (dispatch) => {
 	axios
 		.post('/login', userData, header_info)
 		.then((res) => {
-			history.push('/course');
+			history.push('/');
 			return dispatch({
 				type: 'USER-LOGIN',
 				payload: res.data,

@@ -1,24 +1,34 @@
 const getLocalData = () => {
-    return { 
-        authenticated: false, 
-        user: {}
-    }
-}
+    const localUser = localStorage.getItem('userData');
+    if (localUser) return JSON.parse(localUser);
+	return {
+		authenticated: false,
+		user: {},
+	};
+};
 
-const initialState=getLocalData();
+const initialState = getLocalData();
 
-export default function userReducers(state=initialState, action) {
-    switch (action.type) {
+export default function userReducers(state = initialState, action) {
+    let newState;
+	switch (action.type) {
 		case 'USER-LOGIN':
-			console.log('ACTION PAYLOAD', action.payload);
-			return { authenticated: true, user: action.payload };
+            newState = { authenticated: true, user: action.payload };
+            saveData(newState);
+			return newState;
 		case 'USER-REGISTER':
-			console.log('ACTION PAYLOAD', action.payload);
-			return { authenticated: true, user: action.payload };
-        case 'USER-CHANGE':
-            return { ...state, user: action.payload }
-
-        default:
-            return state;
+            newState = { authenticated: true, user: action.payload };
+            saveData(newState);
+			return newState;
+		case 'USER-CHANGE':
+            newState = { ...state, user: action.payload };
+            saveData(newState);
+			return newState;
+		default:
+			return state;
 	}
 }
+
+const saveData = (data) => {
+	localStorage.setItem('userData', JSON.stringify(data));
+};

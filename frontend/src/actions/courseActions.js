@@ -30,8 +30,8 @@ export const createCourse = (courseData, userData, history) => (dispatch) => {
 	axios
 		.post('/class/create-course', courseData, header_info)
 		.then((res) => {
-            history.push('/course')
-            dispatch(enrollInCourse(userData, res.data.id));
+			history.push('/');
+			dispatch(enrollInCourse(userData, res.data.id));
 			dispatch({
 				type: 'ADD-COURSES',
 				payload: res.data,
