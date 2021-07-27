@@ -24,6 +24,10 @@ export default function userReducers(state = initialState, action) {
             newState = { ...state, user: action.payload };
             saveData(newState);
 			return newState;
+        case 'USER-LOGOUT':
+            newState = { authenticated: false, user: {}}
+            saveData(newState);
+            return newState;
 		default:
 			return state;
 	}

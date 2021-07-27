@@ -15,16 +15,10 @@ const useStyles = makeStyles((theme) => ({
 
 const EnrollCourseItem = ({ course }) => {
 	const classes = useStyles();
-
 	const [disabled, setDisabled] = React.useState(false);
 
 	const dispatch = useDispatch();
 	const { user } = useSelector((state) => state.userState);
-
-	// Check if user is already enrolled in this course
-    for (let i = 0; i < user.courses.length; i++) {
-        if (user.courses[i].id === course.id) setDisabled(true);
-    }
 
 	const stateProps = { dispatch, user, course, setDisabled };
 
@@ -90,7 +84,7 @@ const ObjToTextField = ({ keyText, valueText }) => {
 
 const enroll = (e, stateProps) => {
 	const { dispatch, user, course, setDisabled } = stateProps;
-    setDisabled(true);
+	setDisabled(true);
 	dispatch(enrollInCourse(user, course['id']));
 };
 

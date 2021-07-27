@@ -47,3 +47,10 @@ export const tryRegister = (userData, history) => (dispatch) => {
 			});
 		});
 };
+
+export const logout = () => {
+    return {
+        type: 'USER-LOGOUT',
+        payload: null
+    }
+}

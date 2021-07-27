@@ -11,6 +11,10 @@ import { useHistory } from 'react-router-dom';
 
 const EnrollCourse = () => {
 	const courses = useSelector((state) => state.courseState);
+	const { user } = useSelector((state) => state.userState);
+	const filteredCourses = courses.filter(
+		(course) => !user.courses.includes(course.id)
+	);
 	const history = useHistory();
 
 	return (
@@ -22,11 +26,11 @@ const EnrollCourse = () => {
 						<Button
 							variant="contained"
 							color="primary"
-							onClick={() => history.push('/course')}>
-							{'NEXT >'}
+							onClick={() => history.push('/')}>
+							Home
 						</Button>
 					</Grid>
-					{courses.map((_course, _index) => {
+					{filteredCourses.map((_course, _index) => {
 						return (
 							<EnrollCourseItem course={_course} key={_index} />
 						);
