@@ -17,10 +17,12 @@ const useStyles = makeStyles((theme) => ({
 const EnrollCourseItem = ({ course }) => {
 	const classes = useStyles();
 
+    const [disabled, setDisabled] = React.useState(false);
+
 	const dispatch = useDispatch();
 	const {user} = useSelector((state) => state.userState);
 
-	const stateProps = { dispatch, user, course };
+	const stateProps = { dispatch, user, course, setDisabled };
 
 	return (
 		<Grid item>
@@ -52,6 +54,7 @@ const EnrollCourseItem = ({ course }) => {
 				</Grid>
 				<Grid item>
 					<Button
+                        disabled={disabled}
 						variant="contained"
 						color="secondary"
 						onClick={(e) => enroll(e, stateProps)}>
@@ -81,7 +84,8 @@ const ObjToTextField = ({ keyText, valueText }) => {
 };
 
 const enroll = (e, stateProps) => {
-	const { dispatch, user, course } = stateProps;
+	const { dispatch, user, course, setDisabled } = stateProps;
+    setDisabled(true);
 	dispatch(enrollInCourse(user, course['id']));
 };
 

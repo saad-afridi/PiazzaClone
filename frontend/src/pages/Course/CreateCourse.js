@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { createCourse } from '../../actions/courseActions';
 
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
 	createForm: {
@@ -18,8 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CreateCourse = () => {
-
-    const classes = useStyles();
+	const classes = useStyles();
 
 	const [name, setName] = React.useState('');
 	const [num, setNum] = React.useState('');
@@ -28,14 +28,15 @@ const CreateCourse = () => {
 
 	const dispatch = useDispatch();
 	const { user } = useSelector((state) => state.userState);
+	const history = useHistory();
 
-	const stateProps = { name, num, estimate, term, dispatch, user };
+	const stateProps = { name, num, estimate, term, dispatch, history, user };
 
 	return (
 		<Grid item>
 			<PageHeader label={'Create Course'} />
 			<Grid
-                className={classes.createForm}
+				className={classes.createForm}
 				container
 				direction="column"
 				spacing={3}
@@ -88,14 +89,14 @@ const CreateCourse = () => {
 };
 
 const submitForm = (e, stateProps) => {
-	const { name, num, estimate, term, dispatch, user } = stateProps;
+	const { name, num, estimate, term, dispatch, history, user } = stateProps;
 	const courseData = {
 		class_name: name,
 		class_num: num,
 		estimated_enroll: estimate,
 		term,
 	};
-	dispatch(createCourse(courseData, user));
+	dispatch(createCourse(courseData, user, history));
 };
 
 export default CreateCourse;

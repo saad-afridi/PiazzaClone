@@ -1,15 +1,18 @@
 import React from 'react';
 
-import { Grid } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 
 import { useSelector } from 'react-redux';
 
 import EnrollCourseItem from './EnrollCourseItem';
 import PageHeader from '../../../components/utils/PageHeader';
 
+import { useHistory } from 'react-router-dom';
+
+
 const EnrollCourse = () => {
 	const courses = useSelector((state) => state.courseState);
-	console.log(courses);
+    const history = useHistory();
 
 	return (
 		<Grid item>
@@ -19,6 +22,9 @@ const EnrollCourse = () => {
 					return <EnrollCourseItem course={_course} key={_index} />;
 				})}
 			</Grid>
+            <Button variant="text" color="default" onClick={() => history.push('/course')}>
+                NEXT
+            </Button>
 		</Grid>
 	);
 };
