@@ -2,7 +2,7 @@ import React from 'react';
 import PageHeader from '../../components/utils/PageHeader';
 import { Grid, TextField, Button, makeStyles } from '@material-ui/core';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { tryLogin } from '../../actions/authActions';
 
 import { useHistory } from 'react-router';
@@ -23,6 +23,15 @@ const Login = () => {
 
 	const stateProps = { email, pass, dispatch, history };
 
+	// Error Handling
+	const authErrors = useSelector((state) => state.errorState);
+
+	const emailHasError = authErrors.email.length > 0;
+	const passHasError = authErrors.password.length > 0;
+
+	let emailErrorText = authErrors.email;
+	let passErrorText = authErrors.password;
+
 	return (
 		<Grid item>
 			<PageHeader label={'Login'}></PageHeader>
@@ -36,6 +45,8 @@ const Login = () => {
 						variant="filled"
 						label="Email"
 						onChange={(e) => setEmail(e.target.value)}
+						error={emailHasError}
+						helperText={emailErrorText}
 					/>
 				</Grid>
 				<Grid item>
@@ -44,6 +55,8 @@ const Login = () => {
 						label="Password"
 						type="password"
 						onChange={(e) => setPass(e.target.value)}
+						error={passHasError}
+						helperText={passErrorText}
 					/>
 				</Grid>
 				<Grid item>

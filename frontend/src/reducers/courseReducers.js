@@ -16,5 +16,5 @@ export default function courseReducers(state = initialState, action) {
 // Thunk Function
 export async function loadCourses(dispatch, getState) {
 	const res = await axios.get('/class/get-courses');
-    dispatch({type: 'SET-COURSES', payload: res.data.payload})
+    dispatch({type: 'SET-COURSES', payload: res.data})
 }

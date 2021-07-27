@@ -23,7 +23,7 @@ async def create_user(data: dict, errors: list) -> dict:
         user_exists = await user_collection.find_one({"email": data["email"]})
         if user_exists:
             errors.append(ErrorModel(["body", "email"],
-                                     "email taken",
+                                     "email is taken",
                                      "value_error"))
         else:
             user = await user_collection.insert_one(data)
@@ -65,8 +65,8 @@ async def login(userInfo: dict, errors: list) -> dict:
             return convert_helper(user)
         else:
             errors.append(ErrorModel(["body", "password"],
-                                     "password incorrect",
+                                     "password is incorrect",
                                      "value_error"))
     else:
-        errors.append(ErrorModel(["body", "email"], "email incorrect",
+        errors.append(ErrorModel(["body", "email"], "email is incorrect",
                                  "value_error"))

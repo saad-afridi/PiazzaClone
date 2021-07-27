@@ -8,14 +8,19 @@ export const tryLogin = (userData, history) => (dispatch) => {
 	axios
 		.post('/login', userData, header_info)
 		.then((res) => {
-            history.push('/')
+			history.push('/');
 			return dispatch({
 				type: 'USER-LOGIN',
-				payload: res.data.payload,
+				payload: res.data,
 			});
 		})
 		.catch((err) => {
-			console.log(err);
+			const error = err.response.data.detail[0];
+			console.log(error);
+			return dispatch({
+				type: error.loc[1].toUpperCase(),
+				payload: error.msg,
+			});
 		});
 };
 
@@ -23,13 +28,18 @@ export const tryRegister = (userData, history) => (dispatch) => {
 	axios
 		.post('/register', userData, header_info)
 		.then((res) => {
-            history.push('/');
+			history.push('/');
 			return dispatch({
 				type: 'USER-LOGIN',
-				payload: res.data.payload,
+				payload: res.data,
 			});
 		})
 		.catch((err) => {
-			console.log(err);
+			const error = err.response.data.detail[0];
+			console.log(error);
+			return dispatch({
+				type: error.loc[1].toUpperCase(),
+				payload: error.msg,
+			});
 		});
 };
