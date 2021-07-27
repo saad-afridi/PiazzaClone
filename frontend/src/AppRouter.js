@@ -7,6 +7,7 @@ import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 
 import EnrollCourse from './pages/Course/EnrollCourse'
+import CreateCourse from './pages/Course/CreateCourse';
 
 import { useSelector } from 'react-redux';
 
@@ -25,6 +26,9 @@ const AppRouter = () => {
 			</Route>
             <Route path="/enroll">
                 <EnrollCourse />
+            </Route>
+            <Route path="/create-course">
+                <CreateCourse />
             </Route>
 			<Route path="/register">
 				<Register />

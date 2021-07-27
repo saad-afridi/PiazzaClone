@@ -22,7 +22,6 @@ const EnrollCourseItem = ({ course }) => {
 
 	const stateProps = { dispatch, user, course };
 
-	console.log(course);
 	return (
 		<Grid item>
 			<Grid

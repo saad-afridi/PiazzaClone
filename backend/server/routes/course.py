@@ -22,14 +22,14 @@ async def get_all_courses():
     return all_courses
 
 
-@router.post('/create-course', response_model=ClassSchema)
+@router.post('/create-course', response_model=ClassOutSchema)
 async def add_course(course: ClassSchema = Body(...)):
     dict_course = course.dict()
     new_course = await db.create_class(dict_course)
     return new_course
 
 
-@router.get('/{id}', response_model=ClassSchema)
+@router.get('/{id}', response_model=ClassOutSchema)
 async def get_course_with_id(id: str = Path(None, description=ID_DESC)):
     errors = []
     course = await db.get_class(id, errors)

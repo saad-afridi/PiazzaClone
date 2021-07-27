@@ -28,7 +28,11 @@ export const tryRegister = (userData, history) => (dispatch) => {
 	axios
 		.post('/register', userData, header_info)
 		.then((res) => {
-			history.push('/enroll');
+			if (userData.category === 'instructor') {
+				history.push('/create-course');
+			} else {
+				history.push('/enroll');
+			}
 			return dispatch({
 				type: 'USER-LOGIN',
 				payload: res.data,
