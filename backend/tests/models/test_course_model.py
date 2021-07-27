@@ -14,7 +14,8 @@ def test_class_model_to_dict():
         summary="Why was the midterm so hard?",
         details="I was stuck on q3!",
         follow_ups=["Yea, Q3!", "Nah it was aight"],
-        replies=["Yeah bad!", "I thought  I made it easy!"]
+        student_answer="Yup. It destroyed me",
+        instructor_answer="Yeah it was hard on purpose"
     )
 
     post2 = PostSchema(
@@ -22,7 +23,8 @@ def test_class_model_to_dict():
         summary="Why was the midterm so hard?",
         details="I was stuck on q3!",
         follow_ups=["Yea, Q3!", "Nah it was aight"],
-        replies=["Yeah bad!", "I thought  I made it easy!"]
+        student_answer="Yup. It destroyed me",
+        instructor_answer="Yeah it was hard on purpose"
     )
 
     ex_class = ClassSchema(
@@ -55,7 +57,8 @@ def test_post_update():
         summary="Why was the midterm so hard?",
         details="I was stuck on q3!",
         follow_ups=["Yea, Q3!", "Nah it was aight"],
-        replies=["Yeah bad!", "I thought  I made it easy!"]
+        student_answer="Yup. It destroyed me",
+        instructor_answer="Yeah it was hard on purpose"
     )
 
     update_post1 = UpdatePost(

@@ -19,7 +19,7 @@ git clone https://github.com/saad-afridi/PiazzaClone
 # Go into the backend
 cd backend
 
-# Create and activate virtual environment (can SKIP)
+# [OPTIONAL] Create and activate virtual environment
 pip install virtualenv
 virtualenv venv
 venv\Scripts\activate.bat
@@ -32,6 +32,9 @@ echo MONGO_ATLAS_URI=mongodb+srv://... > .env
 
 # Run the server
 python main.py
+
+# [OPTIONAL] Run sanity tests
+python -m pytest
 ```
 
 #### Frontend
