@@ -1,29 +1,29 @@
-import React from 'react'
+import React from 'react';
 
-import { Grid, Typography, makeStyles } from '@material-ui/core'
+import { Grid, Typography, makeStyles, Button } from '@material-ui/core';
 
 import { useDispatch, useSelector } from 'react-redux';
-import userReducers from '../../../reducers/userReducers';
+import { enrollInCourse } from '../../../actions/courseActions';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        backgroundColor: theme.palette.elevated[1],
-        margin: "10px 0px",
-        borderRadius: "15px",
-        padding: '10px'
-    },
+	root: {
+		backgroundColor: theme.palette.elevated[1],
+		margin: '10px 0px',
+		borderRadius: '15px',
+		padding: '10px',
+	},
 }));
 
-const EnrollCourseItem = ({course}) => {
-    const classes = useStyles();
+const EnrollCourseItem = ({ course }) => {
+	const classes = useStyles();
 
-    const dispatch = useDispatch();
-    const userstate = useSelector(state => state.userState);
+	const dispatch = useDispatch();
+	const {user} = useSelector((state) => state.userState);
 
+	const stateProps = { dispatch, user, course };
 
-
-    console.log(course);
-    return (
+	console.log(course);
+	return (
 		<Grid item>
 			<Grid
 				container
@@ -49,35 +49,41 @@ const EnrollCourseItem = ({course}) => {
 					/>
 				</Grid>
 				<Grid item>
-					<ObjToTextField
-						keyText={'TERM'}
-						valueText={course.term}
-					/>
+					<ObjToTextField keyText={'TERM'} valueText={course.term} />
+				</Grid>
+				<Grid item>
+					<Button
+						variant="contained"
+						color="secondary"
+						onClick={(e) => enroll(e, stateProps)}>
+						ENROLL
+					</Button>
 				</Grid>
 			</Grid>
 		</Grid>
 	);
-}
+};
 
-const ObjToTextField = ({keyText, valueText}) => {
-    return (
-    <Grid container direction="row" spacing={2}>
-		<Grid item>
-			<Typography noWrap color="primary" variant="h6">
-				{keyText + ':'}
-			</Typography>
+const ObjToTextField = ({ keyText, valueText }) => {
+	return (
+		<Grid container direction="row" spacing={2}>
+			<Grid item>
+				<Typography noWrap color="primary" variant="h6">
+					{keyText + ':'}
+				</Typography>
+			</Grid>
+			<Grid item>
+				<Typography noWrap color="default" variant="h5">
+					{valueText}
+				</Typography>
+			</Grid>
 		</Grid>
-		<Grid item>
-			<Typography noWrap color="default" variant="h5">
-				{valueText}
-			</Typography>
-		</Grid>
-	</Grid>
-    )
-}
+	);
+};
 
-const enrollInCourse = (e, stateProps) => {
-
-}
+const enroll = (e, stateProps) => {
+	const { dispatch, user, course } = stateProps;
+	dispatch(enrollInCourse(user, course['id']));
+};
 
 export default EnrollCourseItem;

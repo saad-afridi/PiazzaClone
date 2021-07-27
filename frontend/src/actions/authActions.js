@@ -8,7 +8,7 @@ export const tryLogin = (userData, history) => (dispatch) => {
 	axios
 		.post('/login', userData, header_info)
 		.then((res) => {
-			history.push('/');
+			history.push('/enroll');
 			return dispatch({
 				type: 'USER-LOGIN',
 				payload: res.data,
@@ -28,7 +28,7 @@ export const tryRegister = (userData, history) => (dispatch) => {
 	axios
 		.post('/register', userData, header_info)
 		.then((res) => {
-			history.push('/');
+			history.push('/enroll');
 			return dispatch({
 				type: 'USER-LOGIN',
 				payload: res.data,
