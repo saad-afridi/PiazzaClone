@@ -11,14 +11,15 @@ import {
 	Select,
 } from '@material-ui/core';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { tryRegister } from '../../actions/authActions';
 
 import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
-	loginForm: {
+	registerForm: {
 		backgroundColor: theme.palette.elevated[1],
+		minWidth: '250px',
 	},
 }));
 
@@ -35,6 +36,15 @@ const Register = () => {
 
 	const stateProps = { name, email, pass, category, dispatch, history };
 
+	// Error Handling
+	const authErrors = useSelector((state) => state.errorState);
+
+	const emailHasError = authErrors.email.length > 0;
+	const passHasError = authErrors.password.length > 0;
+
+	let emailErrorText = authErrors.email;
+	let passErrorText = authErrors.password;
+
 	return (
 		<Grid item>
 			<PageHeader label={'Register'}></PageHeader>
@@ -42,7 +52,9 @@ const Register = () => {
 				container
 				direction="column"
 				spacing={3}
-				className={classes.loginForm}>
+				className={classes.registerForm}
+                alignItems="center"
+                >
 				<Grid item>
 					<FormControl>
 						<InputLabel>Category</InputLabel>
@@ -66,6 +78,8 @@ const Register = () => {
 						variant="filled"
 						label="Email"
 						onChange={(e) => setEmail(e.target.value)}
+						error={emailHasError}
+						helperText={emailErrorText}
 					/>
 				</Grid>
 				<Grid item>
@@ -74,6 +88,8 @@ const Register = () => {
 						label="Password"
 						type="password"
 						onChange={(e) => setPass(e.target.value)}
+						error={passHasError}
+						helperText={passErrorText}
 					/>
 				</Grid>
 				<Grid item>

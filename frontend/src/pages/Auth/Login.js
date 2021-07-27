@@ -10,6 +10,8 @@ import { useHistory } from 'react-router';
 const useStyles = makeStyles((theme) => ({
 	loginForm: {
 		backgroundColor: theme.palette.elevated[1],
+        minWidth: "250px",
+        padding: "5px 0px"
 	},
 }));
 
@@ -39,9 +41,13 @@ const Login = () => {
 				container
 				direction="column"
 				spacing={3}
-				className={classes.loginForm}>
+				className={classes.loginForm}
+                justifyContent="center"
+                alignItems="center"
+                >
 				<Grid item>
 					<TextField
+                        fullWidth={true}
 						variant="filled"
 						label="Email"
 						onChange={(e) => setEmail(e.target.value)}
