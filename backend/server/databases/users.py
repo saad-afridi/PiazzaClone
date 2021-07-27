@@ -35,14 +35,23 @@ async def update_user(email: str, data: dict, errors: list) -> dict:
     """ Updates a User in the collection given their <id> and new <data> """
     if len(data) < 1:
         errors.append(ErrorModel(["body"], "no data", "value_error"))
-
     # Check if user with email exists
     user_exists = await user_collection.find_one({"email": email})
     if not user_exists:
-        errors.append(ErrorModel(["body", "email"],
+        errors.append(ErrorModel(["query", "email"],
                                  "no user with email found",
                                  "value_error"))
         return
+
+    # Check if new email isn't taken by anyone else
+    if "email" in data:
+        check_new_email = await user_collection.find_one({"email": data["email"]})
+        if check_new_email:
+            errors.append(ErrorModel(["body", "email"],
+                                     "email is taken",
+                                     "value_error"))
+            return
+
     # Updating
     u_user = await user_collection.update_one(
         {"email": email},
