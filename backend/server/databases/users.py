@@ -27,7 +27,8 @@ async def create_user(data: dict, errors: list) -> dict:
                                      "value_error"))
         else:
             user = await user_collection.insert_one(data)
-            new_user = await user_collection.find_one({"_id": user.inserted_id})
+            new_user = await user_collection.find_one(
+                {"_id": user.inserted_id})
             return convert_helper(new_user)
 
 
@@ -45,7 +46,8 @@ async def update_user(email: str, data: dict, errors: list) -> dict:
 
     # Check if new email isn't taken by anyone else
     if "email" in data:
-        check_new_email = await user_collection.find_one({"email": data["email"]})
+        check_new_email = await user_collection.find_one(
+            {"email": data["email"]})
         if check_new_email and not check_new_email == user_exists:
             errors.append(ErrorModel(["body", "email"],
                                      "email is taken",

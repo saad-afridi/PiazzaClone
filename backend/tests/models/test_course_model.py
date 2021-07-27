@@ -1,10 +1,10 @@
+import pytest
+
 from server.models.course import (
     PostSchema,
     ClassSchema,
     UpdateClass,
     UpdatePost)
-
-import pytest
 
 
 def test_class_model_to_dict():
