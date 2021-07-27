@@ -9,22 +9,30 @@ import PageHeader from '../../../components/utils/PageHeader';
 
 import { useHistory } from 'react-router-dom';
 
-
 const EnrollCourse = () => {
 	const courses = useSelector((state) => state.courseState);
-    const history = useHistory();
+	const history = useHistory();
 
 	return (
-		<Grid item>
-			<PageHeader label={'Enroll'}></PageHeader>
-			<Grid container direction="column" spacing={2}>
-				{courses.map((_course, _index) => {
-					return <EnrollCourseItem course={_course} key={_index} />;
-				})}
+		<Grid container alignItems="center" justifyContent="center">
+			<Grid item>
+				<PageHeader label={'Enroll In Courses'}></PageHeader>
+				<Grid container direction="column" spacing={2}>
+					<Grid item>
+						<Button
+							variant="contained"
+							color="primary"
+							onClick={() => history.push('/course')}>
+							{'NEXT >'}
+						</Button>
+					</Grid>
+					{courses.map((_course, _index) => {
+						return (
+							<EnrollCourseItem course={_course} key={_index} />
+						);
+					})}
+				</Grid>
 			</Grid>
-            <Button variant="text" color="default" onClick={() => history.push('/course')}>
-                NEXT
-            </Button>
 		</Grid>
 	);
 };

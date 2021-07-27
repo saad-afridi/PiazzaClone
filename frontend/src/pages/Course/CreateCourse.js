@@ -33,55 +33,57 @@ const CreateCourse = () => {
 	const stateProps = { name, num, estimate, term, dispatch, history, user };
 
 	return (
-		<Grid item>
-			<PageHeader label={'Create Course'} />
-			<Grid
-				className={classes.createForm}
-				container
-				direction="column"
-				spacing={3}
-				justifyContent="center"
-				alignItems="center">
-				<Grid item>
-					<TextField
-						variant="filled"
-						label="Course Name"
-						onChange={(e) => setName(e.target.value)}
-						placeholder={'Intro. To Comp Sci.'}
-					/>
-				</Grid>
-				<Grid item>
-					<TextField
-						variant="filled"
-						label="Course Number"
-						onChange={(e) => setNum(e.target.value)}
-						placeholder={'CSC108H5'}
-					/>
-				</Grid>
-				<Grid item>
-					<TextField
-						variant="filled"
-						label="Term"
-						onChange={(e) => setTerm(e.target.value)}
-						placeholder={'FALL2021'}
-					/>
-				</Grid>
-				<Grid item>
-					<TextField
-						variant="filled"
-						type="number"
-						label="Estimated Enrollment"
-						value={estimate}
-						onChange={(e) => setEstimate(e.target.value)}
-					/>
-				</Grid>
-				<Grid item>
-					<Button
-						variant="contained"
-						color="secondary"
-						onClick={(e) => submitForm(e, stateProps)}>
-						CREATE
-					</Button>
+		<Grid container alignItems="center" justifyContent="center">
+			<Grid item>
+				<PageHeader label={'Create Course'} />
+				<Grid
+					className={classes.createForm}
+					container
+					direction="column"
+					spacing={3}
+					justifyContent="center"
+					alignItems="center">
+					<Grid item>
+						<TextField
+							variant="filled"
+							label="Course Name"
+							onChange={(e) => setName(e.target.value)}
+							placeholder={'Intro. To Comp Sci.'}
+						/>
+					</Grid>
+					<Grid item>
+						<TextField
+							variant="filled"
+							label="Course Number"
+							onChange={(e) => setNum(e.target.value)}
+							placeholder={'CSC108H5'}
+						/>
+					</Grid>
+					<Grid item>
+						<TextField
+							variant="filled"
+							label="Term"
+							onChange={(e) => setTerm(e.target.value)}
+							placeholder={'FALL2021'}
+						/>
+					</Grid>
+					<Grid item>
+						<TextField
+							variant="filled"
+							type="number"
+							label="Estimated Enrollment"
+							value={estimate}
+							onChange={(e) => setEstimate(e.target.value)}
+						/>
+					</Grid>
+					<Grid item>
+						<Button
+							variant="contained"
+							color="secondary"
+							onClick={(e) => submitForm(e, stateProps)}>
+							CREATE
+						</Button>
+					</Grid>
 				</Grid>
 			</Grid>
 		</Grid>

@@ -35,42 +35,44 @@ const Login = () => {
 	let passErrorText = authErrors.password;
 
 	return (
-		<Grid item>
-			<PageHeader label={'Login'}></PageHeader>
-			<Grid
-				container
-				direction="column"
-				spacing={3}
-				className={classes.loginForm}
-				justifyContent="center"
-				alignItems="center">
-				<Grid item>
-					<TextField
-						fullWidth={true}
-						variant="filled"
-						label="Email"
-						onChange={(e) => setEmail(e.target.value)}
-						error={emailHasError}
-						helperText={emailErrorText}
-					/>
-				</Grid>
-				<Grid item>
-					<TextField
-						variant="filled"
-						label="Password"
-						type="password"
-						onChange={(e) => setPass(e.target.value)}
-						error={passHasError}
-						helperText={passErrorText}
-					/>
-				</Grid>
-				<Grid item>
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={() => submitForm(stateProps)}>
-						Confirm
-					</Button>
+		<Grid container alignItems="center" justifyContent="center">
+			<Grid item>
+				<PageHeader label={'Login'}></PageHeader>
+				<Grid
+					container
+					direction="column"
+					spacing={3}
+					className={classes.loginForm}
+					justifyContent="center"
+					alignItems="center">
+					<Grid item>
+						<TextField
+							fullWidth={true}
+							variant="filled"
+							label="Email"
+							onChange={(e) => setEmail(e.target.value)}
+							error={emailHasError}
+							helperText={emailErrorText}
+						/>
+					</Grid>
+					<Grid item>
+						<TextField
+							variant="filled"
+							label="Password"
+							type="password"
+							onChange={(e) => setPass(e.target.value)}
+							error={passHasError}
+							helperText={passErrorText}
+						/>
+					</Grid>
+					<Grid item>
+						<Button
+							variant="contained"
+							color="primary"
+							onClick={() => submitForm(stateProps)}>
+							Confirm
+						</Button>
+					</Grid>
 				</Grid>
 			</Grid>
 		</Grid>

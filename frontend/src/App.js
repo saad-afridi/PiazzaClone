@@ -32,16 +32,14 @@ let theme = createTheme({
 
 function App() {
 	return (
-		<Grid container alignItems="center" justifyContent="center">
-			<ThemeProvider theme={theme}>
-				<link
-					rel="stylesheet"
-					href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-				/>
-				<CssBaseline />
-				<AppRouter />
-			</ThemeProvider>
-		</Grid>
+        <ThemeProvider theme={theme}>
+            <link
+                rel="stylesheet"
+                href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            />
+            <CssBaseline />
+            <AppRouter />
+        </ThemeProvider>
 	);
 }
 

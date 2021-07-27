@@ -46,59 +46,62 @@ const Register = () => {
 	let passErrorText = authErrors.password;
 
 	return (
-		<Grid item>
-			<PageHeader label={'Register'}></PageHeader>
-			<Grid
-				container
-				direction="column"
-				spacing={3}
-				className={classes.registerForm}
-                alignItems="center"
-                >
-				<Grid item>
-					<FormControl>
-						<InputLabel>Category</InputLabel>
-						<Select
-							value={category}
-							onChange={(e) => setCategory(e.target.value)}>
-							<MenuItem value={'student'}>Student</MenuItem>
-							<MenuItem value={'instructor'}>Instructor</MenuItem>
-						</Select>
-					</FormControl>
-				</Grid>
-				<Grid item>
-					<TextField
-						variant="filled"
-						label="Full Name"
-						onChange={(e) => setName(e.target.value)}
-					/>
-				</Grid>
-				<Grid item>
-					<TextField
-						variant="filled"
-						label="Email"
-						onChange={(e) => setEmail(e.target.value)}
-						error={emailHasError}
-						helperText={emailErrorText}
-					/>
-				</Grid>
-				<Grid item>
-					<TextField
-						variant="filled"
-						label="Password"
-						type="password"
-						onChange={(e) => setPass(e.target.value)}
-						error={passHasError}
-						helperText={passErrorText}
-					/>
-				</Grid>
-				<Grid item>
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={() => submitForm(stateProps)}>
-						Confirm
-					</Button>
+		<Grid container justify="center" alignItems="center">
+			<Grid item>
+				<PageHeader label={'Register'}></PageHeader>
+				<Grid
+					container
+					direction="column"
+					spacing={3}
+					className={classes.registerForm}
+					alignItems="center">
+					<Grid item>
+						<FormControl>
+							<InputLabel>Category</InputLabel>
+							<Select
+								value={category}
+								onChange={(e) => setCategory(e.target.value)}>
+								<MenuItem value={'student'}>Student</MenuItem>
+								<MenuItem value={'instructor'}>
+									Instructor
+								</MenuItem>
+							</Select>
+						</FormControl>
+					</Grid>
+					<Grid item>
+						<TextField
+							variant="filled"
+							label="Full Name"
+							onChange={(e) => setName(e.target.value)}
+						/>
+					</Grid>
+					<Grid item>
+						<TextField
+							variant="filled"
+							label="Email"
+							onChange={(e) => setEmail(e.target.value)}
+							error={emailHasError}
+							helperText={emailErrorText}
+						/>
+					</Grid>
+					<Grid item>
+						<TextField
+							variant="filled"
+							label="Password"
+							type="password"
+							onChange={(e) => setPass(e.target.value)}
+							error={passHasError}
+							helperText={passErrorText}
+						/>
+					</Grid>
+					<Grid item>
+						<Button
+							variant="contained"
+							color="primary"
+							onClick={() => submitForm(stateProps)}>
+							Confirm
+						</Button>
+					</Grid>
 				</Grid>
 			</Grid>
 		</Grid>

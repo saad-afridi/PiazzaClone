@@ -9,7 +9,6 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 		backgroundColor: theme.palette.elevated[1],
 		margin: '10px 0px',
-		borderRadius: '15px',
 		padding: '10px',
 	},
 }));
@@ -17,10 +16,15 @@ const useStyles = makeStyles((theme) => ({
 const EnrollCourseItem = ({ course }) => {
 	const classes = useStyles();
 
-    const [disabled, setDisabled] = React.useState(false);
+	const [disabled, setDisabled] = React.useState(false);
 
 	const dispatch = useDispatch();
-	const {user} = useSelector((state) => state.userState);
+	const { user } = useSelector((state) => state.userState);
+
+	// Check if user is already enrolled in this course
+    for (let i = 0; i < user.courses.length; i++) {
+        if (user.courses[i].id === course.id) setDisabled(true);
+    }
 
 	const stateProps = { dispatch, user, course, setDisabled };
 
@@ -54,7 +58,8 @@ const EnrollCourseItem = ({ course }) => {
 				</Grid>
 				<Grid item>
 					<Button
-                        disabled={disabled}
+						style={{ left: '35%' }}
+						disabled={disabled}
 						variant="contained"
 						color="secondary"
 						onClick={(e) => enroll(e, stateProps)}>
@@ -75,7 +80,7 @@ const ObjToTextField = ({ keyText, valueText }) => {
 				</Typography>
 			</Grid>
 			<Grid item>
-				<Typography noWrap color="default" variant="h5">
+				<Typography noWrap variant="h5">
 					{valueText}
 				</Typography>
 			</Grid>
