@@ -81,7 +81,8 @@ const Login = () => {
 
 const submitForm = (stateProps) => {
 	const { email, pass, dispatch, history } = stateProps;
-	dispatch(tryLogin({ email, password: pass }, history));
+	const tryLoginThunk = tryLogin({ email, password: pass }, history);
+	dispatch(tryLoginThunk);
 };
 
 export default Login;

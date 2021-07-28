@@ -3,7 +3,9 @@ const getLocalData = () => {
     if (localUser) return JSON.parse(localUser);
 	return {
 		authenticated: false,
-		user: {},
+		user: {
+            courses: []
+        },
 	};
 };
 
@@ -25,7 +27,7 @@ export default function userReducers(state = initialState, action) {
             saveData(newState);
 			return newState;
         case 'USER-LOGOUT':
-            newState = { authenticated: false, user: {}}
+            newState = { authenticated: false, user: { courses: []}}
             saveData(newState);
             return newState;
 		default:

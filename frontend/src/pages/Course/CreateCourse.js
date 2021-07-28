@@ -92,13 +92,21 @@ const CreateCourse = () => {
 
 const submitForm = (e, stateProps) => {
 	const { name, num, estimate, term, dispatch, history, user } = stateProps;
+    
 	const courseData = {
 		class_name: name,
 		class_num: num,
 		estimated_enroll: estimate,
 		term,
+        instructors: [user.email],
+		folders: ['general'],
+		students: [],
+		post_num: 0,
+		posts: []
 	};
-	dispatch(createCourse(courseData, user, history));
+
+    const createCourseThunk = createCourse(courseData, user, history);
+	dispatch(createCourseThunk);
 };
 
 export default CreateCourse;

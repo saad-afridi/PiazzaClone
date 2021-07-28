@@ -13,9 +13,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const EnrollCourseItem = ({ course }) => {
+const EnrollCourseItem = ({ course, disable }) => {
 	const classes = useStyles();
-	const [disabled, setDisabled] = React.useState(false);
+	const [disabled, setDisabled] = React.useState(disable);
 
 	const dispatch = useDispatch();
 	const { user } = useSelector((state) => state.userState);
@@ -85,7 +85,8 @@ const ObjToTextField = ({ keyText, valueText }) => {
 const enroll = (e, stateProps) => {
 	const { dispatch, user, course, setDisabled } = stateProps;
 	setDisabled(true);
-	dispatch(enrollInCourse(user, course['id']));
+    const enrollInCourseThunk = enrollInCourse(user, course['id']);
+	dispatch(enrollInCourseThunk);
 };
 
 export default EnrollCourseItem;

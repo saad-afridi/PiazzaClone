@@ -110,15 +110,17 @@ const Register = () => {
 
 const submitForm = (stateProps) => {
 	const { category, email, pass, name, dispatch, history } = stateProps;
-	dispatch(
-		tryRegister({
+    const tryRegisterThunk = tryRegister(
+		{
 			category,
 			email,
 			password: pass,
 			name,
 			courses: [],
-		}, history)
+		},
+		history
 	);
+	dispatch(tryRegisterThunk);
 };
 
 export default Register;
