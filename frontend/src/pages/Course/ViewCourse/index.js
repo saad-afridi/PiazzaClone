@@ -1,5 +1,7 @@
 import React from 'react';
 
+import PostView from './PostView';
+
 import {
 	AppBar,
 	Button,
@@ -55,7 +57,7 @@ const ViewCourse = () => {
 
 	// makes a num to course dict so {CSC108: Course id ...}
 	let tmpCourseOpts = [];
-	const courseNumToCourse = courses.reduce((groupedCourse, course) => {
+	const courseNumToCourseID = courses.reduce((groupedCourse, course) => {
 		if (user.courses.includes(course.id)) {
 			groupedCourse[course.class_num] = course.id;
 			tmpCourseOpts.push(course.class_num);
@@ -77,8 +79,8 @@ const ViewCourse = () => {
 	const handleCreateCourse = () => {
 		history.push('/create-course');
 	};
+	console.log(courseOption, tmpCourseOpts[0], courseNumToCourseID);
 
-	console.log(courseOption, tmpCourseOpts[0], courseNumToCourse);
 	return (
 		<div>
 			<AppBar position="static" className={classes.appBar}>
@@ -117,6 +119,7 @@ const ViewCourse = () => {
 					</Button>
 				</Toolbar>
 			</AppBar>
+			<PostView courseID={courseNumToCourseID[courseOption]} />
 		</div>
 	);
 };

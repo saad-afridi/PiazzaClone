@@ -10,7 +10,7 @@ class PostSchema(BaseModel):
     index: Optional[int] = 0
     category: str = "question"
     post_to: str = "entire_class"
-    folders: str = "general"
+    folder: str = "general"
     summary: str = Field(...)
     details: str = Field(...)
     follow_ups: List[str] = Field(...)
@@ -51,7 +51,7 @@ class UpdatePost(BaseModel):
     index: Optional[int] = None
     category: Optional[str] = None
     post_to: Optional[str] = None
-    folders: Optional[str] = None
+    folder: Optional[str] = None
     summary: Optional[str] = None
     details: Optional[str] = None
     follow_ups: List[str] = None
