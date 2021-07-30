@@ -28,20 +28,20 @@ const PostView = ({ courseID }) => {
 			instructor_answer: '',
 		},
 	]);
+	const [postToShow, selectPostToShow] = React.useState(posts[0]);
 
 	React.useEffect(() => {
 		const fetchPostsFromAPI = async () => {
 			try {
 				const res = await axios.get(`/class/${courseID}/get-post`);
 				setPosts(res.data);
+                selectPostToShow(res.data[0])
 			} catch (err) {
 				console.log(err.response);
 			}
 		};
 		fetchPostsFromAPI();
 	}, [courseID]);
-
-	const [postToShow, selectPostToShow] = React.useState(posts[0]);
 	console.log('POSTVIEW', posts);
 	return (
 		<Grid container direction="column" className={classes.postPageContainer}>

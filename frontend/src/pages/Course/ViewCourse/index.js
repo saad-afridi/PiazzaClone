@@ -12,7 +12,8 @@ import {
 	FormControl,
 	Select,
 	MenuItem,
-    Container
+    Container,
+    InputLabel
 } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 
@@ -56,6 +57,9 @@ const ViewCourse = () => {
 	const { user } = state.userState;
 	const courses = state.courseState;
 
+
+    const [courseOption, setCourseOption] = React.useState('');
+
 	// makes a num to course dict so {CSC108: Course id ...}
 	let tmpCourseOpts = [];
 	const courseNumToCourseID = courses.reduce((groupedCourse, course) => {
@@ -65,8 +69,6 @@ const ViewCourse = () => {
 		}
 		return groupedCourse;
 	}, {});
-
-	const [courseOption, setCourseOption] = React.useState(tmpCourseOpts[0]);
 
 	// Handlers
 	const handleLogout = () => {
@@ -80,7 +82,10 @@ const ViewCourse = () => {
 	const handleCreateCourse = () => {
 		history.push('/create-course');
 	};
-	console.log(courseOption, tmpCourseOpts[0], courseNumToCourseID);
+
+	
+	console.log("IS THIS HAPPENING", courseOption, courseNumToCourseID);
+    console.log("TEMP COURFSE", tmpCourseOpts)
 
 	return (
 		<Container maxWidth='xl'>
@@ -88,7 +93,9 @@ const ViewCourse = () => {
 				<Toolbar>
 					<Typography variant="h6">PiazzaClone</Typography>
 					<FormControl className={classes.courseSelect}>
+                        <InputLabel>Course</InputLabel>
 						<Select
+                            defaultValue={tmpCourseOpts[0]}
 							value={courseOption}
 							onChange={(e) => setCourseOption(e.target.value)}>
 							{tmpCourseOpts.map((_course, _index) => {
