@@ -12,6 +12,7 @@ import {
 	FormControl,
 	Select,
 	MenuItem,
+    Container
 } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 
@@ -82,8 +83,8 @@ const ViewCourse = () => {
 	console.log(courseOption, tmpCourseOpts[0], courseNumToCourseID);
 
 	return (
-		<div>
-			<AppBar position="static" className={classes.appBar}>
+		<Container maxWidth='xl'>
+			<AppBar className={classes.appBar}>
 				<Toolbar>
 					<Typography variant="h6">PiazzaClone</Typography>
 					<FormControl className={classes.courseSelect}>
@@ -120,7 +121,7 @@ const ViewCourse = () => {
 				</Toolbar>
 			</AppBar>
 			<PostView courseID={courseNumToCourseID[courseOption]} />
-		</div>
+		</Container>
 	);
 };
 
