@@ -25,6 +25,18 @@ async def get_all_courses():
 @router.post('/create-course', response_model=ClassOutSchema)
 async def add_course(course: ClassSchema = Body(...)):
     dict_course = course.dict()
+    if "posts" not in dict_course or len(dict_course["posts"]) == 0:
+        dict_course["posts"] = [{
+            'index': 0,
+            'category': 'question',
+            'post_to': 'entire_class',
+            'folder': 'general',
+            'summary': 'Welcome!',
+            'details': 'No posts yet, Lets write some!',
+            'follow_ups': [],
+            'student_answer': '',
+            'instructor_answer': '',
+        }]
     new_course = await db.create_class(dict_course)
     return new_course
 

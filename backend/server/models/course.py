@@ -1,9 +1,26 @@
+from __future__ import annotations
 from typing import Optional, List, Dict, Set
 from pydantic import BaseModel, Field, EmailStr, validator
 
 
 post_types = ["question", "note", "poll"]
 post_readers = ["entire_class", "instructors"]
+
+
+class FollowUpSchema(BaseModel):
+    name: str = Field(...)
+    content: str = Field(...)
+    replies = List[FollowUpSchema] = Field(...)
+
+    class Config:
+        schemaExtra = {
+            "example": {
+                "name": "John Smith",
+                "content": "Yeah but just to add on it's fine if we don't do "
+                "it right?",
+                "replies": [{"name": "TA 1", "content": "Yes"}]
+            }
+        }
 
 
 class PostSchema(BaseModel):
@@ -13,9 +30,10 @@ class PostSchema(BaseModel):
     folder: str = "general"
     summary: str = Field(...)
     details: str = Field(...)
-    follow_ups: List[str] = Field(...)
+    follow_ups: List[FollowUpSchema] = Field(...)
     student_answer: str = Field(...)
     instructor_answer: str = Field(...)
+    marked_as_duplicate: bool = Field(...)
 
     @validator('category')
     def category_is_one_of_posttype(cls, v):
@@ -42,7 +60,8 @@ class PostSchema(BaseModel):
                             "finish the whole thing"),
                 "follow_ups": [],
                 "student_answer": "Yeah it was really hard for me too!",
-                "instructor_answer": "I thought I made it too easy actually."
+                "instructor_answer": "I thought I made it too easy actually.",
+                "marked_as_duplicate": "False"
             }
         }
 
@@ -113,7 +132,8 @@ class ClassSchema(BaseModel):
                                 "finish the whole thing"),
                     "follow_ups": [],
                     "student_answer": "",
-                    "instructor_answer": ""
+                    "instructor_answer": "",
+                    "marked_as_duplicate": "False"
                 }]
             }
         }
