@@ -27,7 +27,6 @@ class PostSchema(BaseModel):
     index: Optional[int] = 0
     category: str = "question"
     post_to: str = "entire_class"
-    folder: str = "general"
     summary: str = Field(...)
     details: str = Field(...)
     follow_ups: List[FollowUpSchema] = Field(...)
@@ -53,7 +52,6 @@ class PostSchema(BaseModel):
                 "index": 0,
                 "category": "question",
                 "post_to": "entire_class",
-                "folders": "midterm",
                 "summary": "Why was the midterm so hard?",
                 "details": ("I was stuck on q3 for most of the test "
                             "and I didnt even have enough time to "
@@ -70,7 +68,6 @@ class UpdatePost(BaseModel):
     index: Optional[int] = None
     category: Optional[str] = None
     post_to: Optional[str] = None
-    folder: Optional[str] = None
     summary: Optional[str] = None
     details: Optional[str] = None
     follow_ups: List[str] = None
@@ -102,7 +99,6 @@ class ClassSchema(BaseModel):
     class_num: str = Field(...)
     estimated_enroll: int = Field(..., gt=0)
     term: str = Field(...)
-    folders: List[str] = Field(...)
     instructors: List[EmailStr] = Field(...)
     students: List[EmailStr] = Field(...)
     post_num: int = 1
@@ -115,7 +111,6 @@ class ClassSchema(BaseModel):
                 "class_num": "CSC148H5",
                 "estimated_enroll": 200,
                 "term": "FALL2020",
-                "folders": ["midterm", "A1", "A2", "A3", "exam", "general"],
                 "instructors": ["ta1@utoronto.ca", "ta2@utoronto.ca",
                                 "prof1@utoronto.ca"],
                 "students": ["ak@utoronto.ca", "abij@utoronto.ca",
@@ -158,7 +153,6 @@ class ClassOutSchema(BaseModel):
                 "class_num": "STA256H5",
                 "estimated_enroll": 50,
                 "term": "FALL2020",
-                "folders": ["midterm", "exam", "general"],
                 "instructors": ["ta1@utoronto.ca",
                                 "prof1@utoronto.ca"],
                 "students": ["ak@utoronto.ca", "abij@utoronto.ca",
@@ -173,7 +167,6 @@ class UpdateClass(BaseModel):
     class_num: Optional[str] = None
     estimated_enroll: Optional[int] = None
     term: Optional[str] = None
-    folders: Optional[List[str]] = None
     instructors: Optional[List[EmailStr]] = None
     students: List[EmailStr] = None
     post_num: Optional[int] = None
