@@ -30,12 +30,12 @@ async def add_course(course: ClassSchema = Body(...)):
             'index': 0,
             'category': 'question',
             'post_to': 'entire_class',
-            'folder': 'general',
             'summary': 'Welcome!',
             'details': 'No posts yet, Lets write some!',
             'follow_ups': [],
             'student_answer': '',
             'instructor_answer': '',
+            'marked_as_duplicate': False
         }]
     new_course = await db.create_class(dict_course)
     return new_course

@@ -34,6 +34,7 @@ export function tryRegister(userData, history) {
 					: '/enroll';
 			history.push(path);
 		} catch (err) {
+            console.log(err);
 			const error = err.response.data.detail[0];
 			console.log(error);
 			dispatch({

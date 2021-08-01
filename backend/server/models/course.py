@@ -10,7 +10,7 @@ post_readers = ["entire_class", "instructors"]
 class FollowUpSchema(BaseModel):
     name: str = Field(...)
     content: str = Field(...)
-    replies = List[FollowUpSchema] = Field(...)
+    replies: List[dict] = Field(...)
 
     class Config:
         schemaExtra = {
@@ -23,6 +23,7 @@ class FollowUpSchema(BaseModel):
         }
 
 
+# ------------------------------- POST SCHEMAS -------------------------------
 class PostSchema(BaseModel):
     index: Optional[int] = 0
     category: str = "question"
@@ -73,6 +74,7 @@ class UpdatePost(BaseModel):
     follow_ups: List[str] = None
     student_answer: Optional[str] = None
     instructor_answer: Optional[str] = None
+    marked_as_duplicate: Optional[bool] = None
 
     @validator('category')
     def category_is_one_of_posttype(cls, v):
@@ -94,6 +96,7 @@ class UpdatePost(BaseModel):
         }
 
 
+# ------------------------------- CLASS SCHEMAS -------------------------------
 class ClassSchema(BaseModel):
     class_name: str = Field(...)
     class_num: str = Field(...)
@@ -120,7 +123,6 @@ class ClassSchema(BaseModel):
                     "index": 0,
                     "category": "question",
                     "post_to": "entire_class",
-                    "folders": "midterm",
                     "summary": "Why was the midterm so hard?",
                     "details": ("I was stuck on q3 for most of the test "
                                 "and I didnt even have enough time to "
@@ -140,7 +142,6 @@ class ClassOutSchema(BaseModel):
     class_num: str = Field(...)
     estimated_enroll: int = Field(..., gt=0)
     term: str = Field(...)
-    folders: List[str] = Field(...)
     instructors: List[EmailStr] = Field(...)
     students: List[EmailStr] = Field(...)
     post_num: int = 1

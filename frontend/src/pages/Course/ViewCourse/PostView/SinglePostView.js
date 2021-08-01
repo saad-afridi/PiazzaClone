@@ -14,10 +14,10 @@ const useStyles = makeStyles((theme) => ({
 		padding: '5px',
 	},
 	followUps: {
-        backgroundColor: theme.palette.elevated[3],
-        borderRadius: '10px',
-        padding: '5px'
-    },
+		backgroundColor: theme.palette.elevated[3],
+		borderRadius: '10px',
+		padding: '5px',
+	},
 }));
 
 const SinglePostView = (props) => {
@@ -31,14 +31,7 @@ const SinglePostView = (props) => {
 					{'@' + post.index}
 				</Typography>
 			</Grid>
-			<Grid item>
-				<InfoBox
-					header={'FOLDER:'}
-					info={post.folder}
-					direction={'row'}
-					spacing={2}
-				/>
-			</Grid>
+
 			<Grid item>
 				<Typography variant="h3">{post.summary}</Typography>
 			</Grid>

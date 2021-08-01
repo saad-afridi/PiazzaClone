@@ -99,12 +99,10 @@ const submitForm = (e, stateProps) => {
 		estimated_enroll: estimate,
 		term,
         instructors: [user.email],
-		folders: ['general'],
 		students: [],
 		post_num: 0,
-		posts: []
+		posts: [],
 	};
-
     const createCourseThunk = createCourse(courseData, user, history);
 	dispatch(createCourseThunk);
 };
