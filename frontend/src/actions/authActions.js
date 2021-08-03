@@ -12,7 +12,7 @@ export function tryLogin(userData, history) {
 				type: 'USER-LOGIN',
 				payload: res.data,
 			});
-			history.push('/');
+			history.push('/choose-course');
 		} catch (err) {
 			const error = err.response.data.detail[0];
 			dispatch({

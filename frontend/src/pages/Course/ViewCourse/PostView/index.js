@@ -20,7 +20,6 @@ const PostView = ({ courseID }) => {
 			index: 0,
 			category: 'question',
 			post_to: 'entire_class',
-			folder: 'general',
 			summary: 'Welcome!',
 			details: 'No posts yet, Lets write some!',
 			follow_ups: [],
@@ -43,6 +42,7 @@ const PostView = ({ courseID }) => {
 		fetchPostsFromAPI();
 	}, [courseID]);
 	console.log('POSTVIEW', posts);
+    
 	return (
 		<Grid container direction="column" className={classes.postPageContainer}>
 			<Grid item>

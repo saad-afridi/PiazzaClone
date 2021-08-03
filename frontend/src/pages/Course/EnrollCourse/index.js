@@ -23,7 +23,7 @@ const EnrollCourse = () => {
 						<Button
 							variant="contained"
 							color="primary"
-							onClick={() => history.push('/')}>
+							onClick={() => history.push('/choose-course')}>
 							Home
 						</Button>
 					</Grid>

@@ -9,15 +9,11 @@ import {
 	Toolbar,
 	ButtonGroup,
 	makeStyles,
-	FormControl,
-	Select,
-	MenuItem,
-    Container,
-    InputLabel
+	Container,
 } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
 
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../actions/authActions';
@@ -32,23 +28,22 @@ const useStyles = makeStyles((theme) => ({
 		marginRight: '10px',
 	},
 	courseSelect: {
-		marginLeft: '20px',
+		marginLeft: 'auto',
 		marginRight: 'auto',
 	},
 	userType: {
+		marginLeft: 'auto',
 		marginRight: '20px',
 	},
 }));
 
-const selectCourse = (course, key) => {
-	return (
-		<MenuItem value={course} key={key}>
-			{course.toUpperCase()}
-		</MenuItem>
-	);
-};
+function useQuery() {
+	return new URLSearchParams(useLocation().search);
+}
 
 const ViewCourse = () => {
+	let query = useQuery();
+
 	const classes = useStyles();
 	const history = useHistory();
 
@@ -57,18 +52,7 @@ const ViewCourse = () => {
 	const { user } = state.userState;
 	const courses = state.courseState;
 
-
-    const [courseOption, setCourseOption] = React.useState('');
-
-	// makes a num to course dict so {CSC108: Course id ...}
-	let tmpCourseOpts = [];
-	const courseNumToCourseID = courses.reduce((groupedCourse, course) => {
-		if (user.courses.includes(course.id)) {
-			groupedCourse[course.class_num] = course.id;
-			tmpCourseOpts.push(course.class_num);
-		}
-		return groupedCourse;
-	}, {});
+	const course = courses.find((_course) => _course.id === query.get('id'));
 
 	// Handlers
 	const handleLogout = () => {
@@ -83,26 +67,21 @@ const ViewCourse = () => {
 		history.push('/create-course');
 	};
 
-	
-	console.log("IS THIS HAPPENING", courseOption, courseNumToCourseID);
-    console.log("TEMP COURFSE", tmpCourseOpts)
+	const handleAddNewPost = () => {
+		history.push(`/create-post?id=${course.id}`);
+	};
 
 	return (
-		<Container maxWidth='xl'>
+		<Container maxWidth="xl">
 			<AppBar className={classes.appBar}>
 				<Toolbar>
 					<Typography variant="h6">PiazzaClone</Typography>
-					<FormControl className={classes.courseSelect}>
-                        <InputLabel>Course</InputLabel>
-						<Select
-                            defaultValue={tmpCourseOpts[0]}
-							value={courseOption}
-							onChange={(e) => setCourseOption(e.target.value)}>
-							{tmpCourseOpts.map((_course, _index) => {
-								return selectCourse(_course, _index);
-							})}
-						</Select>
-					</FormControl>
+					<Typography
+						variant="h6"
+						color="primary"
+						className={classes.courseSelect}>
+						{course.class_num}
+					</Typography>
 					<Typography
 						className={classes.userType}
 						variant="h5"
@@ -127,7 +106,14 @@ const ViewCourse = () => {
 					</Button>
 				</Toolbar>
 			</AppBar>
-			<PostView courseID={courseNumToCourseID[courseOption]} />
+			<Button
+				style={{ margin: '70px 10px -70px 0px' }}
+				variant="contained"
+				color="primary"
+				onClick={handleAddNewPost}>
+				ADD POST
+			</Button>
+			<PostView courseID={course.id} />
 		</Container>
 	);
 };

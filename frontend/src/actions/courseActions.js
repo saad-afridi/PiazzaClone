@@ -34,9 +34,16 @@ export function createCourse(courseData, userData, history) {
 				type: 'ADD-COURSES',
 				payload: res.data,
 			});
-			history.push('/');
+			history.push('/choose-course');
 		} catch (err) {
 			console.log(err);
 		}
 	};
+}
+
+
+export function createPost(postData, courseID ) {
+    return async function createPostThunk(dispatch, getState) {
+        return;
+    }
 }
