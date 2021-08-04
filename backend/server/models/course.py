@@ -71,7 +71,7 @@ class UpdatePost(BaseModel):
     post_to: Optional[str] = None
     summary: Optional[str] = None
     details: Optional[str] = None
-    follow_ups: List[str] = None
+    follow_ups: Optional[List[FollowUpSchema]] = None
     student_answer: Optional[str] = None
     instructor_answer: Optional[str] = None
     marked_as_duplicate: Optional[bool] = None

@@ -53,7 +53,7 @@ const SinglePostView = (props) => {
 		<Grid container direction="column" className={classes.root} spacing={2}>
 			<Grid item>
 				<Button
-					variant="text"
+					variant="outlined"
 					color="default"
 					onClick={handleToggleDup}>
 					{post.marked_as_duplicate
@@ -235,11 +235,6 @@ const FollowUpsList = ({ followups }) => {
 	const classes = useStyles();
 	return (
 		<Grid container direction="column" className={classes.followUps}>
-			<Grid item>
-				<Typography variant="h6" color="primary">
-					{'FOLLOW-UPS'}
-				</Typography>
-			</Grid>
 			<Grid item>
 				<Grid container direction="column">
 					{followups.map((_follow_up, _index) => {

@@ -78,7 +78,7 @@ const PostView = ({ courseID, history, user }) => {
 					direction="row"
 					spacing={2}
 					alignItems="flex-start"
-                    justify="space-between"
+                    justifyContent="space-between"
                     >
 					<Grid item>
 						<PostList posts={posts} selectPost={selectPostToShow} />
