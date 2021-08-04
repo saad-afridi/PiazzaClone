@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
 	root: {
 		backgroundColor: theme.palette.elevated[1],
 		padding: '10px',
-		width: '1000px',
 	},
 	answer: {
 		backgroundColor: theme.palette.elevated[2],
@@ -32,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SinglePostView = (props) => {
 	const classes = useStyles();
-	const { post, courseID, index } = props;
+	const { post, courseID, index, notInstructor} = props;
 
 	const [editModalOpen, setEditModalOpen] = React.useState(false);
     const [studentAnsModalOpen, setStudentAnsModalOpen] = React.useState(false);
@@ -92,7 +91,9 @@ const SinglePostView = (props) => {
 					classStyle={classes.answer}
 				/>
 			</Grid>
+            { !notInstructor ? 
 			<Grid item>
+
 				<Button
 					size="small"
 					variant="contained"
@@ -103,7 +104,8 @@ const SinglePostView = (props) => {
 					onClick={() => setInsAnsModalOpen(true)}>
 					EDIT
 				</Button>
-			</Grid>
+			</Grid> : ''
+            }
 			<Grid item>
 				{post.follow_ups.length > 0 ? (
 					<FollowUpsList followups={post.follow_ups} />

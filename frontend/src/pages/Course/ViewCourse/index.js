@@ -117,7 +117,7 @@ const ViewCourse = () => {
 					</Button>
 				</Toolbar>
 			</AppBar>
-			<PostView courseID={course.id} history={history} />
+			<PostView courseID={course.id} history={history} user={user} />
 		</Container>
 	);
 };

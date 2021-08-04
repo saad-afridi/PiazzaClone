@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 	},
 });
 
-const PostView = ({ courseID, history }) => {
+const PostView = ({ courseID, history, user }) => {
 	const classes = useStyles();
 	const [posts, setPosts] = React.useState([
 		{
@@ -58,11 +58,11 @@ const PostView = ({ courseID, history }) => {
 			direction="column"
 			className={classes.postPageContainer}>
 			<Grid item>
-				<Grid container direction="row" justifyContent="center">
+				<Grid container direction="row">
 					<Grid item>
 						<Button
 							size="small"
-							style={{ marginRight: 'auto' }}
+							style={{ marginLeft: '5px' }}
 							variant="contained"
 							color="primary"
 							onClick={handleAddNewPost}>
@@ -77,15 +77,18 @@ const PostView = ({ courseID, history }) => {
 					style={{ margin: '10px 0px' }}
 					direction="row"
 					spacing={2}
-					alignItems="flex-start">
+					alignItems="flex-start"
+                    justify="space-between"
+                    >
 					<Grid item>
 						<PostList posts={posts} selectPost={selectPostToShow} />
 					</Grid>
-					<Grid item>
+					<Grid item xs={6} sm={7} md={8}  lg={9}>
 						<SinglePostView
 							post={postToShow}
 							index={posts.findIndex(isEqualToSelectedPost)}
 							courseID={courseID}
+                            notInstructor={user.category === 'student'}
 						/>
 					</Grid>
 				</Grid>
