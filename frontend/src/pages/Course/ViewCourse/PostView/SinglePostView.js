@@ -4,6 +4,8 @@ import { Grid, Typography, Modal, Button, makeStyles } from '@material-ui/core';
 import { yellow } from '@material-ui/core/colors';
 
 import EditPostModal from '../../../../components/modals/EditPostModal';
+import EditStudentAnswerModal from '../../../../components/modals/EditStudentAnswerModal';
+import EditInstructorAnswerModal from '../../../../components/modals/EditInstructorAnswerModal';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -33,6 +35,8 @@ const SinglePostView = (props) => {
 	const { post, courseID, index } = props;
 
 	const [editModalOpen, setEditModalOpen] = React.useState(false);
+    const [studentAnsModalOpen, setStudentAnsModalOpen] = React.useState(false);
+    const [insAnsModalOpen, setInsAnsModalOpen] = React.useState(false);
 
 	return (
 		<Grid container direction="column" className={classes.root} spacing={2}>
@@ -55,11 +59,11 @@ const SinglePostView = (props) => {
 					size="small"
 					variant="contained"
 					style={{
-						marginLeft: '90%',
+						marginLeft: '93%',
 						backgroundColor: yellow[300],
 					}}
 					onClick={() => setEditModalOpen(true)}>
-					EDIT POST
+					EDIT
 				</Button>
 			</Grid>
 			<Grid item>
@@ -70,11 +74,35 @@ const SinglePostView = (props) => {
 				/>
 			</Grid>
 			<Grid item>
+				<Button
+					size="small"
+					variant="contained"
+					style={{
+						marginLeft: '93%',
+						backgroundColor: yellow[300],
+					}}
+					onClick={() => setStudentAnsModalOpen(true)}>
+					EDIT
+				</Button>
+			</Grid>
+			<Grid item>
 				<InfoBox
 					header={'INSTRUCTOR ANSWER'}
 					info={post.instructor_answer}
 					classStyle={classes.answer}
 				/>
+			</Grid>
+			<Grid item>
+				<Button
+					size="small"
+					variant="contained"
+					style={{
+						marginLeft: '93%',
+						backgroundColor: yellow[300],
+					}}
+					onClick={() => setInsAnsModalOpen(true)}>
+					EDIT
+				</Button>
 			</Grid>
 			<Grid item>
 				{post.follow_ups.length > 0 ? (
@@ -89,6 +117,28 @@ const SinglePostView = (props) => {
 				onClose={() => setEditModalOpen(false)}>
 				<EditPostModal
 					onClose={() => setEditModalOpen(false)}
+					post={post}
+					courseID={courseID}
+					index={index}
+				/>
+			</Modal>
+			<Modal
+				className={classes.modalFormContainer}
+				open={studentAnsModalOpen}
+				onClose={() => setStudentAnsModalOpen(false)}>
+				<EditStudentAnswerModal
+					onClose={() => setStudentAnsModalOpen(false)}
+					post={post}
+					courseID={courseID}
+					index={index}
+				/>
+			</Modal>
+			<Modal
+				className={classes.modalFormContainer}
+				open={insAnsModalOpen}
+				onClose={() => setInsAnsModalOpen(false)}>
+				<EditInstructorAnswerModal
+					onClose={() => setInsAnsModalOpen(false)}
 					post={post}
 					courseID={courseID}
 					index={index}
