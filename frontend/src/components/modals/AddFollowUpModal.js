@@ -20,21 +20,22 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export const EditStudentAnswerModal = (props) => {
+export const AddFollowUpModal = (props) => {
 	const classes = useStyles();
-	const { onClose, post, courseID, index } = props;
-	const [studAns, setStudAns] = React.useState(post.student_answer);
+	const { onClose, post, courseID, index, user } = props;
+	const [content, setContent] = React.useState(post.instructor_answer);
 
 	// Redux
 	const dispatch = useDispatch();
 
 	const stateProps = {
-		studAns,
+		content,
 		dispatch,
 		post,
 		onClose,
 		courseID,
 		index,
+		user,
 	};
 
 	return (
@@ -46,18 +47,17 @@ export const EditStudentAnswerModal = (props) => {
 				alignItems="stretch"
 				spacing={4}>
 				<Grid item>
-					<Typography variant="h3">Edit Student Answer</Typography>
+					<Typography variant="h3">Add Follow-Up</Typography>
 				</Grid>
 				<Grid item>
 					<TextField
-						defaultValue={studAns}
 						autoFocus
 						variant="filled"
 						className={classes.contentForm}
 						fullWidth
 						multiline
-						label="Student Answer"
-						onChange={(e) => setStudAns(e.target.value)}
+						label="Instructor Answer"
+						onChange={(e) => setContent(e.target.value)}
 					/>
 				</Grid>
 				<Grid item>
@@ -74,11 +74,12 @@ export const EditStudentAnswerModal = (props) => {
 };
 
 const submitForm = (stateProps) => {
-	const { studAns, onClose, dispatch, post, courseID, index } = stateProps;
-	post.student_answer = studAns;
+	const { content, onClose, dispatch, post, courseID, index, user } =
+		stateProps;
+	post.follow_ups.push({ content, name: user.name, replies: [] });
 	const editPostThunk = editPost(post, courseID, index);
 	dispatch(editPostThunk);
 	onClose();
 };
 
-export default EditStudentAnswerModal;
+export default AddFollowUpModal;

@@ -88,7 +88,7 @@ const PostView = ({ courseID, history, user }) => {
 							post={postToShow}
 							index={posts.findIndex(isEqualToSelectedPost)}
 							courseID={courseID}
-                            notInstructor={user.category === 'student'}
+                            user={user}
 						/>
 					</Grid>
 				</Grid>

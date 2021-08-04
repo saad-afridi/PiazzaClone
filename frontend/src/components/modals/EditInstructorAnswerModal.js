@@ -46,7 +46,7 @@ export const EditInstructorAnswerModal = (props) => {
 				alignItems="stretch"
 				spacing={4}>
 				<Grid item>
-					<Typography variant="h3">Edit Post</Typography>
+					<Typography variant="h3">Edit Instructor Answer</Typography>
 				</Grid>
 				<Grid item>
 					<TextField

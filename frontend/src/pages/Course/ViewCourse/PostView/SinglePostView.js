@@ -6,6 +6,7 @@ import { yellow } from '@material-ui/core/colors';
 import EditPostModal from '../../../../components/modals/EditPostModal';
 import EditStudentAnswerModal from '../../../../components/modals/EditStudentAnswerModal';
 import EditInstructorAnswerModal from '../../../../components/modals/EditInstructorAnswerModal';
+import AddFollowUpModal from '../../../../components/modals/AddFollowUpModal'
 
 import { useDispatch } from 'react-redux';
 import { editPost } from '../../../../actions/postActions';
@@ -35,11 +36,12 @@ const useStyles = makeStyles((theme) => ({
 const SinglePostView = (props) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
-	const { post, courseID, index, notInstructor } = props;
+	const { post, courseID, index, user } = props;
 
 	const [editModalOpen, setEditModalOpen] = React.useState(false);
 	const [studentAnsModalOpen, setStudentAnsModalOpen] = React.useState(false);
 	const [insAnsModalOpen, setInsAnsModalOpen] = React.useState(false);
+    const [addFollowupModalOpen, setAddFollowupModalOpen] = React.useState(false);
 
 	const handleToggleDup = () => {
 		post.marked_as_duplicate = !post.marked_as_duplicate;
@@ -61,7 +63,7 @@ const SinglePostView = (props) => {
 			</Grid>
 			<Grid item>
 				<Typography variant="h6" color="secondary">
-					{!post.marked_as_duplicate ? '@' + post.index : 'DUP'}
+					{!post.marked_as_duplicate ? '@' + post.index : 'DUPLICATE'}
 				</Typography>
 			</Grid>
 
@@ -109,7 +111,7 @@ const SinglePostView = (props) => {
 					classStyle={classes.answer}
 				/>
 			</Grid>
-			{!notInstructor ? (
+			{user.category === 'instructor' ? (
 				<Grid item>
 					<Button
 						size="small"
@@ -125,6 +127,15 @@ const SinglePostView = (props) => {
 			) : (
 				''
 			)}
+			<Grid item>
+				<Button
+					size="small"
+					variant="contained"
+					color="primary"
+					onClick={() => setAddFollowupModalOpen(true)}>
+					ADD FOLLOW-UP
+				</Button>
+			</Grid>
 			<Grid item>
 				{post.follow_ups.length > 0 ? (
 					<FollowUpsList followups={post.follow_ups} />
@@ -163,6 +174,18 @@ const SinglePostView = (props) => {
 					post={post}
 					courseID={courseID}
 					index={index}
+				/>
+			</Modal>
+			<Modal
+				className={classes.modalFormContainer}
+				open={addFollowupModalOpen}
+				onClose={() => setAddFollowupModalOpen(false)}>
+				<AddFollowUpModal
+					onClose={() => setAddFollowupModalOpen(false)}
+					post={post}
+					courseID={courseID}
+					index={index}
+                    user={user}
 				/>
 			</Modal>
 		</Grid>
@@ -222,9 +245,12 @@ const FollowUpsList = ({ followups }) => {
 					{followups.map((_follow_up, _index) => {
 						return (
 							<Grid item key={_index}>
-								<Typography variant="h5">
-									{_follow_up}
-								</Typography>
+								<InfoBox
+									header={_follow_up.name}
+									info={_follow_up.content}
+									direction="row"
+									spacing={2}
+								/>
 							</Grid>
 						);
 					})}
