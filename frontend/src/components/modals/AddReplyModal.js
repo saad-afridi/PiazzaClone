@@ -20,9 +20,9 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export const AddFollowUpModal = (props) => {
+export const AddReplyModal = (props) => {
 	const classes = useStyles();
-	const { onClose, post, courseID, index, user } = props;
+	const { onClose, post, courseID, index, user, followupIndex } = props;
 	const [content, setContent] = React.useState('');
 
 	// Redux
@@ -36,6 +36,7 @@ export const AddFollowUpModal = (props) => {
 		courseID,
 		index,
 		user,
+        followupIndex
 	};
 
 	return (
@@ -47,7 +48,7 @@ export const AddFollowUpModal = (props) => {
 				alignItems="stretch"
 				spacing={4}>
 				<Grid item>
-					<Typography variant="h3">Add Follow-Up</Typography>
+					<Typography variant="h3">Add Reply</Typography>
 				</Grid>
 				<Grid item>
 					<TextField
@@ -56,7 +57,7 @@ export const AddFollowUpModal = (props) => {
 						className={classes.contentForm}
 						fullWidth
 						multiline
-						label="Follow-Up"
+						label="Reply"
 						onChange={(e) => setContent(e.target.value)}
 					/>
 				</Grid>
@@ -74,12 +75,13 @@ export const AddFollowUpModal = (props) => {
 };
 
 const submitForm = (stateProps) => {
-	const { content, onClose, dispatch, post, courseID, index, user } =
+	const { content, onClose, dispatch, post, courseID, index, user, followupIndex } =
 		stateProps;
-	post.follow_ups.push({ content, name: user.name, replies: [] });
+    console.log("POST", post.follow_ups, followupIndex)
+	post.follow_ups[followupIndex].replies.push({ content, name: user.name});
 	const editPostThunk = editPost(post, courseID, index);
 	dispatch(editPostThunk);
 	onClose();
 };
 
-export default AddFollowUpModal;
+export default AddReplyModal;

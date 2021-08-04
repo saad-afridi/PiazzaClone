@@ -6,7 +6,8 @@ import { yellow } from '@material-ui/core/colors';
 import EditPostModal from '../../../../components/modals/EditPostModal';
 import EditStudentAnswerModal from '../../../../components/modals/EditStudentAnswerModal';
 import EditInstructorAnswerModal from '../../../../components/modals/EditInstructorAnswerModal';
-import AddFollowUpModal from '../../../../components/modals/AddFollowUpModal'
+import AddFollowUpModal from '../../../../components/modals/AddFollowUpModal';
+import AddReplyModal from '../../../../components/modals/AddReplyModal';
 
 import { useDispatch } from 'react-redux';
 import { editPost } from '../../../../actions/postActions';
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.elevated[3],
 		borderRadius: '10px',
 		padding: '5px',
+        margin: '10px 0px'
 	},
 	modalFormContainer: {
 		display: 'flex',
@@ -41,12 +43,21 @@ const SinglePostView = (props) => {
 	const [editModalOpen, setEditModalOpen] = React.useState(false);
 	const [studentAnsModalOpen, setStudentAnsModalOpen] = React.useState(false);
 	const [insAnsModalOpen, setInsAnsModalOpen] = React.useState(false);
-    const [addFollowupModalOpen, setAddFollowupModalOpen] = React.useState(false);
+	const [addFollowupModalOpen, setAddFollowupModalOpen] =
+		React.useState(false);
+	const [addReplyModalOpen, setAddReplyModalOpen] = React.useState(false);
+
+	const [followupIndex, setFollowUpIndex] = React.useState(0);
 
 	const handleToggleDup = () => {
 		post.marked_as_duplicate = !post.marked_as_duplicate;
 		const editPostThunk = editPost(post, courseID, index);
 		dispatch(editPostThunk);
+	};
+
+	const openAddReplyModal = (index) => {
+		setFollowUpIndex(index);
+		setAddReplyModalOpen(true);
 	};
 
 	return (
@@ -138,11 +149,16 @@ const SinglePostView = (props) => {
 			</Grid>
 			<Grid item>
 				{post.follow_ups.length > 0 ? (
-					<FollowUpsList followups={post.follow_ups} />
+					<FollowUpsList
+						openReplyModal={openAddReplyModal}
+						followups={post.follow_ups}
+					/>
 				) : (
 					''
 				)}
 			</Grid>
+
+            {/* MODALS */}
 			<Modal
 				className={classes.modalFormContainer}
 				open={editModalOpen}
@@ -185,13 +201,28 @@ const SinglePostView = (props) => {
 					post={post}
 					courseID={courseID}
 					index={index}
-                    user={user}
+					user={user}
+				/>
+			</Modal>
+			<Modal
+				className={classes.modalFormContainer}
+				open={addReplyModalOpen}
+				onClose={() => setAddReplyModalOpen(false)}>
+				<AddReplyModal
+					onClose={() => setAddReplyModalOpen(false)}
+					post={post}
+					courseID={courseID}
+					index={index}
+					user={user}
+					followupIndex={followupIndex}
 				/>
 			</Modal>
 		</Grid>
 	);
 };
 
+
+/* Main Representation of Data in SinglePostView */
 const InfoBox = ({
 	direction,
 	header,
@@ -231,25 +262,53 @@ const InfoBox = ({
 	);
 };
 
-const FollowUpsList = ({ followups }) => {
+const FollowUpsList = ({ followups, openReplyModal }) => {
 	const classes = useStyles();
 	return (
-		<Grid container direction="column" className={classes.followUps}>
+        <Grid container direction="column" spacing={0} justifyContent="flex-start" alignItems="stretch">
+			{followups.map((_follow_up, _index) => {
+				return (
+					<Grid item key={_index} className={classes.followUps}>
+						<InfoBox
+							header={_follow_up.name}
+							info={_follow_up.content}
+							direction="row"
+							spacing={2}
+						/>
+						<ReplyList
+							index={_index}
+							openReplyModal={openReplyModal}
+							replies={_follow_up.replies}
+						/>
+					</Grid>
+				);
+			})}
+        </Grid>
+	);
+};
+
+const ReplyList = ({ replies, openReplyModal, index }) => {
+	return (
+		<Grid container direction="column">
+			{replies.map((_reply, _index) => {
+				return (
+					<Grid
+						item
+						key={'re' + _index}
+						style={{ marginLeft: '40px' }}>
+						<InfoBox
+							header={_reply.name}
+							info={_reply.content}
+							direction="row"
+							spacing={2}
+						/>
+					</Grid>
+				);
+			})}
 			<Grid item>
-				<Grid container direction="column">
-					{followups.map((_follow_up, _index) => {
-						return (
-							<Grid item key={_index}>
-								<InfoBox
-									header={_follow_up.name}
-									info={_follow_up.content}
-									direction="row"
-									spacing={2}
-								/>
-							</Grid>
-						);
-					})}
-				</Grid>
+				<Button color="default" onClick={() => openReplyModal(index)}>
+					ADD REPLY
+				</Button>
 			</Grid>
 		</Grid>
 	);
