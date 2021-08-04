@@ -20,28 +20,33 @@ function useQuery() {
 	return new URLSearchParams(useLocation().search);
 }
 
-const AddPost = ({courseID}) => {
-
+const AddPost = () => {
 	const classes = useStyles();
-    const history = useHistory();
-    let query = useQuery();
+	const history = useHistory();
+	let query = useQuery();
 
 	const [summary, setSummary] = React.useState('');
 	const [details, setDetails] = React.useState('');
 
 	const dispatch = useDispatch();
 
-	const stateProps = { summary, details, dispatch, courseID: query.get('id'), history };
+	const stateProps = {
+		summary,
+		details,
+		dispatch,
+		courseID: query.get('id'),
+		history,
+	};
 
 	return (
-		<Grid container justify="center" alignItems="center">
+		<Grid container justifyContent="center" alignItems="center">
 			<Grid item>
 				<PageHeader label={'Create Post'} />
 				<Grid
 					container
 					className={classes.addPostForm}
 					direction="column"
-					justify="center"
+					justifyContent="center"
 					alignItems="center"
 					spacing={3}>
 					<Grid item>
@@ -91,8 +96,8 @@ const submitForm = (stateProps) => {
 		marked_as_duplicate: false,
 	};
 
-    const createPostThunk = createPost(post, courseID, history);
-    dispatch(createPostThunk);
+	const createPostThunk = createPost(post, courseID, history);
+	dispatch(createPostThunk);
 };
 
 export default AddPost;

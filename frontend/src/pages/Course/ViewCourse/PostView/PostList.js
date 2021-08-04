@@ -22,9 +22,8 @@ const PostList = ({ posts, selectPost }) => {
 			className={classes.postListRoot}>
 			{posts.map((_post, _index) => {
 				return (
-					<Grid item xs={2}>
+					<Grid item xs={2} key={_index}>
 						<SelectPost
-							key={_index}
 							selectPost={selectPost}
 							post={_post}
 						/>

@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
 const SinglePostView = (props) => {
 	const classes = useStyles();
 	const { post } = props;
-	console.log('POST', post);
 	return (
 		<Grid container direction="column" className={classes.root} spacing={2}>
 			<Grid item>

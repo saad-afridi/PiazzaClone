@@ -25,7 +25,7 @@ const ChooseCourse = () => {
 	};
 
 	return (
-		<Grid container justify="center" alignItems="center">
+		<Grid container justifyContent="center" alignItems="center">
 			<Grid item>
 				<PageHeader label={'Choose Course'} />
 				<Grid
@@ -36,7 +36,7 @@ const ChooseCourse = () => {
 					className={classes.root}>
 					{courses.map((_course, _index) => {
 						return (
-							<Grid item>
+							<Grid item key={_index}>
 								<Button
 									variant="contained"
 									color="primary"

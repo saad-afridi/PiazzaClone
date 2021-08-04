@@ -67,9 +67,13 @@ const ViewCourse = () => {
 		history.push('/create-course');
 	};
 
-	const handleAddNewPost = () => {
-		history.push(`/create-post?id=${course.id}`);
-	};
+	
+
+    if (!course) {
+        return (
+            <Typography variant="h2"> Sorry ... unable to find course. Select a new one.</Typography>
+        )
+    }
 
 	return (
 		<Container maxWidth="xl">
@@ -106,14 +110,7 @@ const ViewCourse = () => {
 					</Button>
 				</Toolbar>
 			</AppBar>
-			<Button
-				style={{ margin: '70px 10px -70px 0px' }}
-				variant="contained"
-				color="primary"
-				onClick={handleAddNewPost}>
-				ADD POST
-			</Button>
-			<PostView courseID={course.id} />
+			<PostView courseID={course.id} history={history} />
 		</Container>
 	);
 };

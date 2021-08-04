@@ -10,7 +10,21 @@ export function createPost(post, courseID, history) {
 				post,
 				header_info
 			);
-			history.goBack()
+			history.push(`/course?id=${courseID}`)
+		} catch (err) {
+			console.log(err.response.data);
+		}
+	};
+}
+
+export function editPost(post, courseID, index) {
+	return async function editPostThunk(dispatch, getState) {
+		try {
+			await axios.patch(
+				`/class/${courseID}/update-post/${index}`,
+				post,
+				header_info
+			);
 		} catch (err) {
 			console.log(err.response.data);
 		}
