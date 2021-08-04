@@ -7,6 +7,9 @@ import EditPostModal from '../../../../components/modals/EditPostModal';
 import EditStudentAnswerModal from '../../../../components/modals/EditStudentAnswerModal';
 import EditInstructorAnswerModal from '../../../../components/modals/EditInstructorAnswerModal';
 
+import { useDispatch } from 'react-redux';
+import { editPost } from '../../../../actions/postActions';
+
 const useStyles = makeStyles((theme) => ({
 	root: {
 		backgroundColor: theme.palette.elevated[1],
@@ -31,19 +34,34 @@ const useStyles = makeStyles((theme) => ({
 
 const SinglePostView = (props) => {
 	const classes = useStyles();
-	const { post, courseID, index, notInstructor} = props;
+	const dispatch = useDispatch();
+	const { post, courseID, index, notInstructor } = props;
 
 	const [editModalOpen, setEditModalOpen] = React.useState(false);
-    const [studentAnsModalOpen, setStudentAnsModalOpen] = React.useState(false);
-    const [insAnsModalOpen, setInsAnsModalOpen] = React.useState(false);
+	const [studentAnsModalOpen, setStudentAnsModalOpen] = React.useState(false);
+	const [insAnsModalOpen, setInsAnsModalOpen] = React.useState(false);
+
+	const handleToggleDup = () => {
+		post.marked_as_duplicate = !post.marked_as_duplicate;
+		const editPostThunk = editPost(post, courseID, index);
+		dispatch(editPostThunk);
+	};
 
 	return (
 		<Grid container direction="column" className={classes.root} spacing={2}>
 			<Grid item>
-				<Typography
-					variant="h6"
-					color={!post.marked_as_duplicate ? 'secondary' : 'default'}>
-					{'@' + post.index}
+				<Button
+					variant="text"
+					color="default"
+					onClick={handleToggleDup}>
+					{post.marked_as_duplicate
+						? 'UNMARK AS DUPLICATE'
+						: 'MARK AS DUPLICATE'}
+				</Button>
+			</Grid>
+			<Grid item>
+				<Typography variant="h6" color="secondary">
+					{!post.marked_as_duplicate ? '@' + post.index : 'DUP'}
 				</Typography>
 			</Grid>
 
@@ -91,21 +109,22 @@ const SinglePostView = (props) => {
 					classStyle={classes.answer}
 				/>
 			</Grid>
-            { !notInstructor ? 
-			<Grid item>
-
-				<Button
-					size="small"
-					variant="contained"
-					style={{
-						marginLeft: '93%',
-						backgroundColor: yellow[300],
-					}}
-					onClick={() => setInsAnsModalOpen(true)}>
-					EDIT
-				</Button>
-			</Grid> : ''
-            }
+			{!notInstructor ? (
+				<Grid item>
+					<Button
+						size="small"
+						variant="contained"
+						style={{
+							marginLeft: '93%',
+							backgroundColor: yellow[300],
+						}}
+						onClick={() => setInsAnsModalOpen(true)}>
+						EDIT
+					</Button>
+				</Grid>
+			) : (
+				''
+			)}
 			<Grid item>
 				{post.follow_ups.length > 0 ? (
 					<FollowUpsList followups={post.follow_ups} />

@@ -40,10 +40,3 @@ export function createCourse(courseData, userData, history) {
 		}
 	};
 }
-
-
-export function createPost(postData, courseID ) {
-    return async function createPostThunk(dispatch, getState) {
-        return;
-    }
-}

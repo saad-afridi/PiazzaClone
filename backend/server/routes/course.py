@@ -92,3 +92,4 @@ async def update_post(id: str = Path(None, description=ID_DESC),
     if u_post:
         return u_post
     raise HTTPException(status_code=404, detail=errors)
+    
