@@ -1,6 +1,9 @@
 import React from 'react';
 
-import { Grid, Typography, makeStyles } from '@material-ui/core';
+import { Grid, Typography, Modal, Button, makeStyles } from '@material-ui/core';
+import { yellow } from '@material-ui/core/colors';
+
+import EditPostModal from '../../../../components/modals/EditPostModal';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -18,15 +21,25 @@ const useStyles = makeStyles((theme) => ({
 		borderRadius: '10px',
 		padding: '5px',
 	},
+	modalFormContainer: {
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
 }));
 
 const SinglePostView = (props) => {
 	const classes = useStyles();
-	const { post } = props;
+	const { post, courseID, index } = props;
+
+	const [editModalOpen, setEditModalOpen] = React.useState(false);
+
 	return (
 		<Grid container direction="column" className={classes.root} spacing={2}>
 			<Grid item>
-				<Typography variant="h6" color="secondary">
+				<Typography
+					variant="h6"
+					color={!post.marked_as_duplicate ? 'secondary' : 'default'}>
 					{'@' + post.index}
 				</Typography>
 			</Grid>
@@ -36,6 +49,18 @@ const SinglePostView = (props) => {
 			</Grid>
 			<Grid item>
 				<Typography variant="h5">{post.details}</Typography>
+			</Grid>
+			<Grid item>
+				<Button
+					size="small"
+					variant="contained"
+					style={{
+						marginLeft: '90%',
+						backgroundColor: yellow[300],
+					}}
+					onClick={() => setEditModalOpen(true)}>
+					EDIT POST
+				</Button>
 			</Grid>
 			<Grid item>
 				<InfoBox
@@ -58,6 +83,17 @@ const SinglePostView = (props) => {
 					''
 				)}
 			</Grid>
+			<Modal
+				className={classes.modalFormContainer}
+				open={editModalOpen}
+				onClose={() => setEditModalOpen(false)}>
+				<EditPostModal
+					onClose={() => setEditModalOpen(false)}
+					post={post}
+					courseID={courseID}
+					index={index}
+				/>
+			</Modal>
 		</Grid>
 	);
 };

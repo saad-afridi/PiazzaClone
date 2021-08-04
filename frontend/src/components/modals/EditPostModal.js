@@ -5,7 +5,6 @@ import { Grid, Typography, Paper, TextField, Button } from '@material-ui/core';
 
 // Theme and Styling
 import { makeStyles } from '@material-ui/core/styles';
-import { red } from '@material-ui/core/colors';
 
 // Redux
 import { useDispatch } from 'react-redux';
@@ -16,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 		padding: '20px 10px',
 	},
 	contentForm: {
-	    width: 500,
+		width: 500,
 		margin: '20px 0px',
 	},
 }));

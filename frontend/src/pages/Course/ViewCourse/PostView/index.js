@@ -1,10 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-import EditPostModal from '../../../../components/modals/EditPostModal';
-
-import { Button, Grid, makeStyles, Modal } from '@material-ui/core';
-import { yellow } from '@material-ui/core/colors';
+import { Button, Grid, makeStyles} from '@material-ui/core';
 
 import PostList from './PostList';
 import SinglePostView from './SinglePostView';
@@ -16,7 +13,7 @@ const useStyles = makeStyles({
 	modalFormContainer: {
 		display: 'flex',
 		justifyContent: 'center',
-		alignItems: 'center'
+		alignItems: 'center',
 	},
 });
 
@@ -35,8 +32,6 @@ const PostView = ({ courseID, history }) => {
 		},
 	]);
 	const [postToShow, selectPostToShow] = React.useState(posts[0]);
-
-	const [editModalOpen, setEditModalOpen] = React.useState(false);
 
 	React.useEffect(() => {
 		const fetchPostsFromAPI = async () => {
@@ -66,6 +61,7 @@ const PostView = ({ courseID, history }) => {
 				<Grid container direction="row" justifyContent="center">
 					<Grid item>
 						<Button
+							size="small"
 							style={{ marginRight: 'auto' }}
 							variant="contained"
 							color="primary"
@@ -73,15 +69,6 @@ const PostView = ({ courseID, history }) => {
 							ADD POST
 						</Button>
 					</Grid>
-					<Grid item>
-						<Button
-							variant="contained"
-							style={{ backgroundColor: yellow[200] }}
-							onClick={() => setEditModalOpen(true)}>
-							EDIT POST
-						</Button>
-					</Grid>
-					<Grid item></Grid>
 				</Grid>
 			</Grid>
 			<Grid item>
@@ -95,21 +82,14 @@ const PostView = ({ courseID, history }) => {
 						<PostList posts={posts} selectPost={selectPostToShow} />
 					</Grid>
 					<Grid item>
-						<SinglePostView post={postToShow} />
+						<SinglePostView
+							post={postToShow}
+							index={posts.findIndex(isEqualToSelectedPost)}
+							courseID={courseID}
+						/>
 					</Grid>
 				</Grid>
 			</Grid>
-			<Modal
-				className={classes.modalFormContainer}
-				open={editModalOpen}
-				onClose={() => setEditModalOpen(false)}>
-				<EditPostModal
-					onClose={() => setEditModalOpen(false)}
-					post={postToShow}
-					courseID={courseID}
-					index={posts.findIndex(isEqualToSelectedPost)}
-				/>
-			</Modal>
 		</Grid>
 	);
 };
