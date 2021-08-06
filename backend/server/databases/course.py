@@ -58,7 +58,7 @@ async def get_post_by_index(id: str, ind: int, errors: list) -> dict:
     _id = <ObjectID(id)>"""
     course = await get_class(id, errors)
     if course["post_num"] < 0 or course["post_num"] <= ind:
-        errors.append(ErrorModel(["path", "index"], "invalid index", 
+        errors.append(ErrorModel(["path", "index"], "invalid index",
                                  "value_error"))
     else:
         return course["posts"][ind]
@@ -69,7 +69,7 @@ async def create_post(id: str, data: dict, errors: list) -> dict:
     course = await get_class(id, errors)
     if course:
         data["index"] = course["post_num"]
-        
+
         # add post
         post = await course_collection.update_one(
             {"_id": ObjectId(id)},
