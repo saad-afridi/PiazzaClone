@@ -57,6 +57,7 @@ const ViewCourse = () => {
 	// Handlers
 	const handleLogout = () => {
 		dispatch(logout());
+		history.push('/');
 	};
 
 	const handleEnroll = () => {
@@ -67,17 +68,18 @@ const ViewCourse = () => {
 		history.push('/create-course');
 	};
 
-    const handleChooseCourse = () => {
-        history.push('/choose-course')
-    }
+	const handleChooseCourse = () => {
+		history.push('/choose-course');
+	};
 
-	
-
-    if (!course) {
-        return (
-            <Typography variant="h2"> Sorry ... unable to find course. Select a new one.</Typography>
-        )
-    }
+	if (!course) {
+		return (
+			<Typography variant="h2">
+				{' '}
+				Sorry ... unable to find course. Select a new one.
+			</Typography>
+		);
+	}
 
 	return (
 		<Container maxWidth="xl">
@@ -106,9 +108,9 @@ const ViewCourse = () => {
 							disabled={user.category === 'student'}>
 							Create Course
 						</Button>
-                        <Button onClick={handleChooseCourse}>
-                            Choose Course
-                        </Button>
+						<Button onClick={handleChooseCourse}>
+							Choose Course
+						</Button>
 					</ButtonGroup>
 					<Button
 						style={{ backgroundColor: red[400] }}
