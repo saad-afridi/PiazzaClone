@@ -6,6 +6,10 @@ A Full Stack Application for a POC of a piazza-based bot. Made using the **FARM*
 
 ![](https://img.shields.io/badge/Database-MongoDB-informational?style=flat&logo=logo_name&logoColor=white&color=448ee4) ![](https://img.shields.io/badge/Backend-FastAPI-informational?style=flat&logo=logo_name&logoColor=white&color=448ee4) ![](https://img.shields.io/badge/Frontend-React-informational?style=flat&logo=logo_name&logoColor=white&color=448ee4)
 
+## Bot Demo
+
+![](assets/botdemo.gif)
+
 ### Setting Up (Windows)
 
 ```bash
@@ -48,4 +52,14 @@ npm install
 
 # Start the application
 npm start
+```
+
+#### Bot
+
+```bash
+# Go into bot
+cd bot
+
+# Run the bot
+python main.py
 ```

@@ -15,8 +15,12 @@ const useStyles = makeStyles((theme) => ({
 const PostList = ({ posts, selectPost }) => {
 	const classes = useStyles();
 
-    const dupPosts = posts.filter((_post) => _post.marked_as_duplicate === true);
-    const notDupPosts = posts.filter((_post) => _post.marked_as_duplicate !== true);
+	const dupPosts = posts.filter(
+		(_post) => _post.marked_as_duplicate === true
+	);
+	const notDupPosts = posts.filter(
+		(_post) => _post.marked_as_duplicate !== true
+	);
 
 	return (
 		<Grid
@@ -31,9 +35,9 @@ const PostList = ({ posts, selectPost }) => {
 					</Grid>
 				);
 			})}
-            <Grid item xs={2}>
-                <Typography variant="h6" > DUPLICATES </Typography>
-            </Grid>
+			<Grid item xs={2}>
+				<Typography variant="h6"> DUPLICATES </Typography>
+			</Grid>
 			{dupPosts.map((_post, _index) => {
 				return (
 					<Grid item xs={2} key={_index}>
