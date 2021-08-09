@@ -90,11 +90,13 @@ class Bot:
         for post_ind in self.tracking:
             follow_ups = self.get_post(post_ind)["follow_ups"]
             for msg in follow_ups:
-                if msg["name"] == self.user_data["name"] and \
-                        len(msg["replies"]) > 0:
-                    print("\nMarked post as duplicate at {}".format(post_ind))
-                    self.mark_as_duplicate(post_ind)
-                    self.tracking.remove(post_ind)
+                if msg["name"] == self.user_data["name"]:
+                    for reply in msg["replies"]:
+                        if reply != 'NO DUP':
+                            print(
+                                "\nMarked post as dup at {}".format(post_ind))
+                            self.mark_as_duplicate(post_ind)
+                            self.tracking.remove(post_ind)
 
     def update(self, new_course_data: dict):
         """ Updating the corpus, finding and following up with duplicates for
@@ -132,13 +134,15 @@ class Bot:
             if post['score'] >= benchmark:
                 dups.append("@" + str(post['corpus_id']) + " ")
                 self.tracking.append(query['index'])
+        dups.append("\nRespond to this followup with DUP <dup posts #> i.e. "
+                    "DUP 3 4 or NO DUP")
 
         # Make a followup on the original post with the dups posts
         if len(dups) > 0:
             followup = {"name": self.user_data["name"],
                         "content": "".join(dups), "replies": []}
             self.create_followup(query["index"], followup)
-            print("\nMade a follow-up at {}\n".format(query["index"]))
+            print("\nMade a follow-up @{}\n".format(query["index"]))
 
 
 if __name__ == '__main__':
