@@ -1,6 +1,8 @@
 # PiazzaClone
 
-A Full Stack Application for a POC of a piazza-based bot. Made using the **FARM** Stack i.e. **F**ast**A**PI, **R**eact and **M**ongoDB.
+A Full Stack Application for a POC of a piazza-based bot. Made using the **FARM** Stack i.e. **F**ast**A**PI, **R**eact and **M**ongoDB. The main purpose of the bot is to reduce duplicate posts created by students and reduce the redundant work instructors have to do. This is accomplished by the bot using the **NLP** task: semantic text similarity (**STS**). The bot follows up on new posts with potential duplicates and then marks the new post as a duplicate after being prompted by the creator.
+
+We use the **sentence_transformers** library from python and pre-trained model **paraphrase-MiniLM-L12-v2** to create text embeddings. Then we utilize **cosine_similarity** as a measure of similarity between the two text embeddings.
 
 ### Technology and Tools
 
