@@ -2,8 +2,9 @@
 
 A Full Stack Application for a POC of a piazza-based bot. Made using the **FARM** Stack i.e. **F**ast**A**PI, **R**eact and **M**ongoDB. The main purpose of the bot is to reduce duplicate posts created by students and reduce the redundant work instructors have to do. The bot can accomplish this by using existing resources for the **NLP** task: semantic text similarity (**STS**). The bot follows up on new posts with potential duplicates and then marks the new post as a duplicate after being prompted by the creator.
 
-__More Details__:
-We use the pre-trained model **paraphrase-MiniLM-L12-v2** from **sentence_transformers** in python to create text embeddings. Then. we utilize **cosine_similarity** as a measure of similarity between the two text embeddings and if the __cosine similarity__ surpasses some benchmark, we declare it to be a duplicate. This is how the bot determine duplicate posts.
+<ins>More Details:</ins>
+
+> We use the pre-trained model **paraphrase-MiniLM-L12-v2** from **sentence_transformers** in python to create text embeddings. Then. we utilize **cosine_similarity** as a measure of similarity between the two text embeddings and if the **cosine similarity** surpasses some benchmark, we declare it to be a duplicate. This is how the bot determine duplicate posts.
 
 ### Technology and Tools
 
