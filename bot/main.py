@@ -5,7 +5,7 @@ import torch
 from typing import List
 
 API_URL = 'http://127.0.0.1:8000'
-MODEL = SentenceTransformer('paraphrase-MiniLM-L12-v2')
+MODEL = SentenceTransformer('paraphrase-mpnet-base-v2')
 
 
 class Bot:
@@ -19,7 +19,8 @@ class Bot:
         self.course_data = self._req_course_data()
         self.corpus = [post["details"] for post in self.iter_all_posts()]
         self.tracking = []
-        print("Bot Loaded!\n")
+        print("Bot loaded and tracking course {}\n"
+              .format(self.course_data["class_num"]))
 
     # ----------------------- BOT API BASED METHODS ----------------------- #
 
@@ -72,14 +73,14 @@ class Bot:
 
                 post_diff = new_course_data["post_num"] - \
                     self.course_data["post_num"]
-
+                    
+                print("\n{} new post(s) detected!\n".format(post_diff))
                 if post_diff:
-                    print("\n{} new post(s) detected!\n".format(post_diff))
                     self.update(new_course_data)
                 self.check_tracked_post()
 
                 time.sleep(heartbeat)
-                print("~~~ || ~~~\n")
+                print("\nDun Dun ({} seconds have passed)".format(heartbeat))
 
         except KeyboardInterrupt:
             print("Interrupted!")
@@ -94,9 +95,10 @@ class Bot:
                     for reply in msg["replies"]:
                         if reply != 'NO DUP':
                             print(
-                                "\nMarked post as dup at {}".format(post_ind))
+                                "\nMarked post as dup @{}".format(post_ind))
                             self.mark_as_duplicate(post_ind)
                             self.tracking.remove(post_ind)
+                            break
 
     def update(self, new_course_data: dict):
         """ Updating the corpus, finding and following up with duplicates for
@@ -107,7 +109,7 @@ class Bot:
             new_post_content = self.get_post(ind)["details"]
             if content != new_post_content:
                 self.corpus[ind] = new_post_content
-                print("\nUpdated post in corpus at {}".format(ind))
+                print("\nUpdated post @{} in corpus".format(ind))
 
         current_ind = self.course_data["post_num"]
         for i in range(current_ind, new_course_data["post_num"]):
@@ -134,8 +136,6 @@ class Bot:
             if post['score'] >= benchmark:
                 dups.append("@" + str(post['corpus_id']) + " ")
                 self.tracking.append(query['index'])
-        dups.append("\nRespond to this followup with DUP <dup posts #> i.e. "
-                    "DUP 3 4 or NO DUP")
 
         # Make a followup on the original post with the dups posts
         if len(dups) > 0:
@@ -143,11 +143,13 @@ class Bot:
                         "content": "".join(dups), "replies": []}
             self.create_followup(query["index"], followup)
             print("\nMade a follow-up @{}\n".format(query["index"]))
+        else:
+            print("\nNo duplicates found @{}\n".format(query["index"]))
 
 
 if __name__ == '__main__':
-    login_details = {"email": "dupbot@email.ca", "password": "duplicateBAD"}
+    login_details = {"email": "dup@email.com", "password": "password"}
 
-    print("Loading bot ... \n")
+    print("\nLoading bot ... \n")
     basic_bot = Bot(login=login_details)
-    basic_bot.run(heartbeat=5)
+    basic_bot.run(heartbeat=15)
